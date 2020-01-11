@@ -14,6 +14,7 @@ public class DefaultResponse {
 	private String type;
 	private Long records;
 	private List<Object> data;
+	private String message;
 	
 	public DefaultResponse(HttpStatus status, String type, Long records, List<Object> data) {
 		super();
@@ -21,6 +22,15 @@ public class DefaultResponse {
 		this.type = type;
 		this.records = records;
 		this.data = data;
+	}
+
+	public DefaultResponse(HttpStatus status, String type, Long records, List<Object> data, String message) {
+		super();
+		this.status = status;
+		this.type = type;
+		this.records = records;
+		this.data = data;
+		this.message = message;
 	}
 
 	public HttpStatus getStatus() {
@@ -53,5 +63,13 @@ public class DefaultResponse {
 
 	public void setData(List<Object> data) {
 		this.data = data;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

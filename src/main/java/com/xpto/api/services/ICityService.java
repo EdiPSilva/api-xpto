@@ -21,4 +21,6 @@ public interface ICityService {
 	DefaultResponse getCityByState(String uf);
 
 	DefaultResponse getTotal();
+
+	DefaultResponse deleteCityByIbge(Long ibge);
 }

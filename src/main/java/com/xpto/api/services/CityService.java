@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -220,6 +221,30 @@ public class CityService implements ICityService {
 				status = HttpStatus.NO_CONTENT;
 			}
 			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public DefaultResponse deleteCityByIbge(Long ibge) {
+		try {
+			Optional<City> city = cityRepository.findById(ibge);
+			
+			if (city == null || city.isEmpty()) {
+				throw new DefaultException("Cidade não licalizada na base de dados.", HttpStatus.BAD_REQUEST);
+			}
+			
+			List<Object> listObject = new ArrayList<Object>();
+			listObject = Util.castObjectList(Arrays.asList(city), Object.class);
+			cityRepository.deleteById(ibge);
+			
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject, "Cidade removida com sucesso.");
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
