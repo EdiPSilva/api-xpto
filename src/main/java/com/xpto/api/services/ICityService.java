@@ -15,4 +15,6 @@ public interface ICityService {
 	DefaultResponse getCountCityByState();
 
 	DefaultResponse getMaxMinCidadeByState();
+
+	DefaultResponse getCityByIbge(Long ibge);
 }

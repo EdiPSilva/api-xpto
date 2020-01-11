@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -157,6 +158,24 @@ public class CityService implements ICityService {
 			List<Object> listMinState = cityRepository.getMinCityByState();
 			
 			List<Object> listObject = Util.castObjectList(Arrays.asList(listMaxState, listMinState), Object.class);
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public DefaultResponse getCityByIbge(Long ibge) {
+		try {
+			
+			Optional<City> city = cityRepository.findById(ibge);
+			List<Object> listObject = Util.castObjectList(Arrays.asList(city), Object.class);
+			
 			HttpStatus status = HttpStatus.OK;
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
