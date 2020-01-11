@@ -9,5 +9,4 @@ public class XptoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(XptoApplication.class, args);
 	}
-
 }

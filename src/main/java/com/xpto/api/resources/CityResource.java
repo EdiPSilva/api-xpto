@@ -22,22 +22,26 @@ import com.xpto.api.services.ICityService;
 public class CityResource {
 	
 	@Autowired
-	private CityService cityService;
-	
-	@Autowired
-	private ICityService iCityService;
-
-	//Burcas as cidades capitais na base de dados.
-	@GetMapping(value = "/capitais")
-	public ResponseEntity<DefaultResponse> getCapitals() {
-		DefaultResponse response = iCityService.findCapitals();
-		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
-	}
+	private ICityService cityService;
 	
 	//Realizar upload de arquivo .csv para alimentar a base de dados.
 	@RequestMapping(value="/upload", method=RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
 		cityService.createFile(file);
-		return new ResponseEntity<>("Foi realizado o upload do arquivo "+file.getOriginalFilename()+" e importado ", HttpStatus.OK);	
+		return new ResponseEntity<>("Foi realizado o upload do arquivo "+file.getOriginalFilename()+" e importado para a base de dados.", HttpStatus.OK);	
+	}
+	
+	//Burcas as cidades capitais na base de dados.
+	@GetMapping(value = "/capitais")
+	public ResponseEntity<DefaultResponse> getCapitals() {
+		DefaultResponse response = cityService.findCapitals();
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
+	
+	//Busca os estados com a contagem de cidades
+	@GetMapping(value = "/cidades-por-uf")
+	public ResponseEntity<DefaultResponse> getCountCityByState() {
+		DefaultResponse response = cityService.getCountCityByState();
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 }

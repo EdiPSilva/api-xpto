@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.xpto.api.entities.City;
 
 @JsonInclude(Include.NON_NULL)
 public class DefaultResponse {
@@ -14,9 +13,9 @@ public class DefaultResponse {
 	private HttpStatus status;
 	private String type;
 	private Long records;
-	private List<City> data;
+	private List<Object> data;
 	
-	public DefaultResponse(HttpStatus status, String type, Long records, List<City> data) {
+	public DefaultResponse(HttpStatus status, String type, Long records, List<Object> data) {
 		super();
 		this.status = status;
 		this.type = type;
@@ -48,11 +47,11 @@ public class DefaultResponse {
 		this.records = records;
 	}
 
-	public List<City> getData() {
+	public List<Object> getData() {
 		return data;
 	}
 
-	public void setData(List<City> data) {
+	public void setData(List<Object> data) {
 		this.data = data;
 	}
 }

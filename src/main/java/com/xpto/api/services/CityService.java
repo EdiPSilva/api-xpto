@@ -13,18 +13,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xpto.api.dto.StateDTO;
 import com.xpto.api.entities.City;
 import com.xpto.api.exceptions.CitiesException;
 import com.xpto.api.exceptions.DefaultException;
 import com.xpto.api.repositories.CityRepository;
 import com.xpto.api.responses.DefaultResponse;
+import com.xpto.api.util.Util;
 
 @Service
 public class CityService implements ICityService {
 
 	@Autowired
 	private CityRepository cityRepository;
-	
+
+	@Override
 	public void createFile(MultipartFile file) throws IOException {
 		String fileName = file.getOriginalFilename().trim();
 		
@@ -116,16 +119,31 @@ public class CityService implements ICityService {
 			throw new CitiesException("Me desculpe. Houve um erro ao criar o arquivo. Por favor tente novamente.");
 		}
 	}
-
+	
 	@Override
 	public DefaultResponse findCapitals() {
 		try {
-			List<City> listCity = cityRepository.getCapitals();
+			List<Object> listCity = Util.castObjectList(cityRepository.getCapitals(), Object.class);
 			HttpStatus status = HttpStatus.OK;
 			if (listCity.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
 			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listCity.size()), listCity);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public DefaultResponse getCountCityByState() {
+		try {
+			List<Object> listObject = Util.castObjectList(cityRepository.getCountCityByState(), Object.class);
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
