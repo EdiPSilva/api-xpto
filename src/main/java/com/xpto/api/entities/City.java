@@ -1,15 +1,10 @@
 package com.xpto.api.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_city")
@@ -19,44 +14,21 @@ public class City implements Serializable {
 	
 	@Id
 	private Long ibgeId;
-	
-	@NotBlank
 	private String uf;
-	
-	@NotBlank
 	private String name;
-	
-	@NotBlank
 	private String capital;
-	
-	@NotNull
-	@Digits(integer = 10, fraction = 10)
-	private BigDecimal lon;
-	
-	@NotNull
-	@Digits(integer = 10, fraction = 10)
-	private BigDecimal lat;
-	
-	@NotBlank
-	@Column(name = "no_accents")
+	private Double lon;
+	private Double lat;
 	private String noAccents;
 	private String alternativeNames;
-	
-	@NotBlank
 	private String microregion;
-	
-	@NotBlank
 	private String mesoregio;
 	
 	public City() {
 	}
 
-	
-
-	public City(Long ibgeId, @NotBlank String uf, @NotBlank String name, @NotBlank String capital,
-			@NotNull @Digits(integer = 10, fraction = 10) BigDecimal lon,
-			@NotNull @Digits(integer = 10, fraction = 10) BigDecimal lat, @NotBlank String noAccents,
-			String alternativeNames, @NotBlank String microregion, @NotBlank String mesoregio) {
+	public City(Long ibgeId, String uf, String name, String capital, Double lon, Double lat, String noAccents,
+			String alternativeNames, String microregion, String mesoregio) {
 		super();
 		this.ibgeId = ibgeId;
 		this.uf = uf;
@@ -69,8 +41,6 @@ public class City implements Serializable {
 		this.microregion = microregion;
 		this.mesoregio = mesoregio;
 	}
-
-
 
 	public Long getIbgeId() {
 		return ibgeId;
@@ -104,19 +74,19 @@ public class City implements Serializable {
 		this.capital = capital;
 	}
 
-	public BigDecimal getLon() {
+	public Double getLon() {
 		return lon;
 	}
 
-	public void setLon(BigDecimal lon) {
+	public void setLon(Double lon) {
 		this.lon = lon;
 	}
 
-	public BigDecimal getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
-	public void setLat(BigDecimal lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
