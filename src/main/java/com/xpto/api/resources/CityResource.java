@@ -54,15 +54,24 @@ public class CityResource {
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
+	//Buscar cidade por cógido IBGE
 	@GetMapping(value = "/{ibge}")
 	public ResponseEntity<DefaultResponse> getCityByIbge(@PathVariable("ibge") Long ibge) {
 		DefaultResponse response = cityService.getCityByIbge(ibge);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
+	//Buscar lista de cidades por UF
 	@GetMapping(value = "/cidades-por-uf/{uf}")
 	public ResponseEntity<DefaultResponse> getCityByState(@PathVariable("uf") String uf) {	
 		DefaultResponse response = cityService.getCityByState(uf);
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
+	
+	//Buscar o total de registros da dabase de dados
+	@GetMapping(value = "/total")
+	public ResponseEntity<DefaultResponse> getTotal() {		
+		DefaultResponse response = cityService.getTotal();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 }

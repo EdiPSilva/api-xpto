@@ -209,4 +209,20 @@ public class CityService implements ICityService {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
+
+	@Override
+	public DefaultResponse getTotal() {
+		try {
+			List<Object> listObject = Util.castObjectList(Arrays.asList(cityRepository.getTotal()), Object.class);
+			
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
 }

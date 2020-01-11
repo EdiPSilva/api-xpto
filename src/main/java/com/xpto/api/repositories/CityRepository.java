@@ -23,4 +23,7 @@ public interface CityRepository extends JpaRepository<City, Long>  {
 	
 	@Query(value = "select name from tb_city where uf = :uf order by name", nativeQuery = true)
 	List<Object> getCityByState(String uf);
+
+	@Query(value = "select count(ibge_id) from tb_city", nativeQuery = true)
+	Long getTotal();
 }

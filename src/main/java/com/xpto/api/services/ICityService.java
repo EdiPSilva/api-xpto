@@ -19,4 +19,6 @@ public interface ICityService {
 	DefaultResponse getCityByIbge(Long ibge);
 
 	DefaultResponse getCityByState(String uf);
+
+	DefaultResponse getTotal();
 }
