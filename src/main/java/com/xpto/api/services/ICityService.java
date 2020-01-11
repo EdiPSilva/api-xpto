@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xpto.api.entities.City;
 import com.xpto.api.responses.DefaultResponse;
 
 public interface ICityService {
@@ -23,4 +24,6 @@ public interface ICityService {
 	DefaultResponse getTotal();
 
 	DefaultResponse deleteCityByIbge(Long ibge);
+
+	DefaultResponse insertOrUpdateCity(City city);
 }

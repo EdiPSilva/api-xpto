@@ -9,15 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xpto.api.exceptions.DefaultException;
+import com.xpto.api.entities.City;
 import com.xpto.api.responses.DefaultResponse;
-import com.xpto.api.services.CityService;
 import com.xpto.api.services.ICityService;
 
 @RestController
@@ -35,51 +36,58 @@ public class CityResource {
 	}
 	
 	//Burcas as cidades capitais na base de dados.
-	@GetMapping(value = "/capitais")
+	@GetMapping(value = "/cities")
 	public ResponseEntity<DefaultResponse> getCapitals() {
 		DefaultResponse response = cityService.findCapitals();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Busca os estados com a contagem de cidades
-		@GetMapping(value = "/max-min-cidade-uf")
+	//Busca os estados com a contagem de cidades.
+		@GetMapping(value = "/max-min-cities-state")
 		public ResponseEntity<DefaultResponse> getMaxMinCidadeByState() {
 			DefaultResponse response = cityService.getMaxMinCidadeByState();
 			return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 		}
 	
-	//Busca os estados com a contagem de cidades
-	@GetMapping(value = "/quantidade-cidades-por-uf")
+	//Busca os estados com a contagem de cidades.
+	@GetMapping(value = "/quantity-cities-by-state")
 	public ResponseEntity<DefaultResponse> getCountCityByState() {
 		DefaultResponse response = cityService.getCountCityByState();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Buscar cidade por cógido IBGE
+	//Buscar cidade por cógido IBGE.
 	@GetMapping(value = "/{ibge}")
 	public ResponseEntity<DefaultResponse> getCityByIbge(@PathVariable("ibge") Long ibge) {
 		DefaultResponse response = cityService.getCityByIbge(ibge);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Buscar lista de cidades por UF
-	@GetMapping(value = "/cidades-por-uf/{uf}")
+	//Buscar lista de cidades por UF.
+	@GetMapping(value = "/cities-by-state/{uf}")
 	public ResponseEntity<DefaultResponse> getCityByState(@PathVariable("uf") String uf) {	
 		DefaultResponse response = cityService.getCityByState(uf);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Buscar o total de registros da dabase de dados
+	//Buscar o total de registros da dabase de dados.
 	@GetMapping(value = "/total")
 	public ResponseEntity<DefaultResponse> getTotal() {		
 		DefaultResponse response = cityService.getTotal();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Deleta uma cidade por cógido IBGE
+	//Deleta uma cidade por cógido IBGE.
 	@DeleteMapping(value = "/{ibge}")
 	public ResponseEntity<DefaultResponse> deleteCityByIbge(@PathVariable("ibge") Long ibge) {
 		DefaultResponse response = cityService.deleteCityByIbge(ibge);
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
+	
+	//Insere ou atualiza uma cidade.
+	@PostMapping()
+	public ResponseEntity<DefaultResponse> insertOrUpdateCity(@RequestBody City city) {
+		DefaultResponse response = cityService.insertOrUpdateCity(city);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 }

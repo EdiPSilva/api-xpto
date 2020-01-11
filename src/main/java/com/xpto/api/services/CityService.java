@@ -236,8 +236,7 @@ public class CityService implements ICityService {
 				throw new DefaultException("Cidade não licalizada na base de dados.", HttpStatus.BAD_REQUEST);
 			}
 			
-			List<Object> listObject = new ArrayList<Object>();
-			listObject = Util.castObjectList(Arrays.asList(city), Object.class);
+			List<Object> listObject = Util.castObjectList(Arrays.asList(city), Object.class);
 			cityRepository.deleteById(ibge);
 			
 			HttpStatus status = HttpStatus.OK;
@@ -245,6 +244,23 @@ public class CityService implements ICityService {
 				status = HttpStatus.NO_CONTENT;
 			}
 			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject, "Cidade removida com sucesso.");
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public DefaultResponse insertOrUpdateCity(City city) {
+		try {			
+			cityRepository.save(city);
+			List<Object> listObject = Util.castObjectList(Arrays.asList(city), Object.class);
+			
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject, "Cidade cadastrada ou atualizada com sucesso.");
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
