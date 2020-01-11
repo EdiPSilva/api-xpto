@@ -6,34 +6,34 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xpto.api.entities.City;
-import com.xpto.api.exceptions.CitiesExceptions;
-import com.xpto.api.repositories.CityDTO;
+import com.xpto.api.exceptions.CitiesException;
+import com.xpto.api.exceptions.DefaultException;
 import com.xpto.api.repositories.CityRepository;
+import com.xpto.api.responses.DefaultResponse;
 
 @Service
-public class CityService {
+public class CityService implements ICityService {
 
 	@Autowired
-	private CityRepository crep;
-	
-	@Autowired
-	private CityDTO cdto;
+	private CityRepository cityRepository;
 	
 	public void createFile(MultipartFile file) throws IOException {
 		String fileName = file.getOriginalFilename().trim();
 		
 		if (fileName.contains("..")) {
-			throw new CitiesExceptions("O nome do arquivo é inválido. Por favor verifique e tente novamente!");
+			throw new CitiesException("O nome do arquivo é inválido. Por favor verifique e tente novamente!");
 		}
 		
 		if (!file.getContentType().equals("text/csv")) {
-			throw new CitiesExceptions("Por favor envie somente arquivos do tipo csv.");
+			throw new CitiesException("Por favor envie somente arquivos do tipo csv.");
 		}
 		
 		File convertFile = new File(fileName);
@@ -46,7 +46,7 @@ public class CityService {
 		if (convertFile.exists()) {
 			importCity(fileName);
 		} else {
-			throw new CitiesExceptions("Me desculpe. Houve um erro ao criar o arquivo. Por favor tente novamente.");
+			throw new CitiesException("Me desculpe. Houve um erro ao criar o arquivo. Por favor tente novamente.");
 		}
 	}
 	
@@ -107,13 +107,28 @@ public class CityService {
 						city.setMesoregio(columns[9].trim());
 					}
 					
-					crep.save(city);
+					cityRepository.save(city);
 				}	
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new CitiesExceptions("Me desculpe. Houve um erro ao criar o arquivo. Por favor tente novamente.");
+			throw new CitiesException("Me desculpe. Houve um erro ao criar o arquivo. Por favor tente novamente.");
+		}
+	}
+
+	@Override
+	public DefaultResponse findCapitals() {
+		try {
+			List<City> listCity = cityRepository.getCapitals();
+			HttpStatus status = HttpStatus.OK;
+			if (listCity.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listCity.size()), listCity);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package com.xpto.api.resources;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +13,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.xpto.api.entities.City;
+import com.xpto.api.responses.DefaultResponse;
 import com.xpto.api.services.CityService;
+import com.xpto.api.services.ICityService;
 
 @RestController
 @RequestMapping(value = "/city")
 public class CityResource {
 	
 	@Autowired
-	private CityService cs;
+	private CityService cityService;
+	
+	@Autowired
+	private ICityService iCityService;
 
-	@GetMapping
-	public ResponseEntity<City> findAll() {
-		City city = new City(1100015L, "RO", "Alta Floresta D'Oeste", null, null, null, "Alta Floresta D'Oeste", null, "Cacoal", "Leste Rondoniense");
-		
-		return ResponseEntity.ok().body(city);
+	//Burcas as cidades capitais na base de dados.
+	@GetMapping(value = "/capitais")
+	public ResponseEntity<DefaultResponse> getCapitals() {
+		DefaultResponse response = iCityService.findCapitals();
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
+	//Realizar upload de arquivo .csv para alimentar a base de dados.
 	@RequestMapping(value="/upload", method=RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-		
-		cs.createFile(file);
+		cityService.createFile(file);
 		return new ResponseEntity<>("Foi realizado o upload do arquivo "+file.getOriginalFilename()+" e importado ", HttpStatus.OK);	
 	}
 }
