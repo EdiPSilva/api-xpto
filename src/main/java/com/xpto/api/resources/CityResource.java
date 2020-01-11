@@ -39,6 +39,13 @@ public class CityResource {
 	}
 	
 	//Busca os estados com a contagem de cidades
+		@GetMapping(value = "/max-min-cidade-uf")
+		public ResponseEntity<DefaultResponse> getMaxMinCidadeByState() {
+			DefaultResponse response = cityService.getMaxMinCidadeByState();
+			return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+		}
+	
+	//Busca os estados com a contagem de cidades
 	@GetMapping(value = "/cidades-por-uf")
 	public ResponseEntity<DefaultResponse> getCountCityByState() {
 		DefaultResponse response = cityService.getCountCityByState();

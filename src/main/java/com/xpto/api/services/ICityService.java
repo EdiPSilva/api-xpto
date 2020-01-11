@@ -13,4 +13,6 @@ public interface ICityService {
 	DefaultResponse findCapitals();
 	
 	DefaultResponse getCountCityByState();
+
+	DefaultResponse getMaxMinCidadeByState();
 }
