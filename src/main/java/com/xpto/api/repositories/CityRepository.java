@@ -20,4 +20,7 @@ public interface CityRepository extends JpaRepository<City, Long>  {
 	
 	@Query(value = "select count(uf) count, uf from TB_CITY  where uf != 'DF' group by uf order by count(uf) limit 1", nativeQuery = true)
 	List<Object> getMinCityByState();
+	
+	@Query(value = "select name from tb_city where uf = :uf order by name", nativeQuery = true)
+	List<Object> getCityByState(String uf);
 }

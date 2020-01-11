@@ -172,9 +172,32 @@ public class CityService implements ICityService {
 	@Override
 	public DefaultResponse getCityByIbge(Long ibge) {
 		try {
+			if (ibge == null) {
+				throw new DefaultException("O parâmentro ibge esta inválido.", HttpStatus.BAD_REQUEST);
+			}
 			
 			Optional<City> city = cityRepository.findById(ibge);
 			List<Object> listObject = Util.castObjectList(Arrays.asList(city), Object.class);
+			
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public DefaultResponse getCityByState(String uf) {
+		try {
+			if (uf == null || uf.isEmpty()) {
+				throw new DefaultException("O parâmentro uf esta inválido.", HttpStatus.BAD_REQUEST);
+			}
+			
+			List<Object> listObject = Util.castObjectList(cityRepository.getCityByState(uf.toUpperCase()), Object.class);
 			
 			HttpStatus status = HttpStatus.OK;
 			if (listObject.isEmpty()) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xpto.api.exceptions.DefaultException;
 import com.xpto.api.responses.DefaultResponse;
 import com.xpto.api.services.CityService;
 import com.xpto.api.services.ICityService;
@@ -47,7 +48,7 @@ public class CityResource {
 		}
 	
 	//Busca os estados com a contagem de cidades
-	@GetMapping(value = "/cidades-por-uf")
+	@GetMapping(value = "/quantidade-cidades-por-uf")
 	public ResponseEntity<DefaultResponse> getCountCityByState() {
 		DefaultResponse response = cityService.getCountCityByState();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
@@ -56,6 +57,12 @@ public class CityResource {
 	@GetMapping(value = "/{ibge}")
 	public ResponseEntity<DefaultResponse> getCityByIbge(@PathVariable("ibge") Long ibge) {
 		DefaultResponse response = cityService.getCityByIbge(ibge);
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
+	
+	@GetMapping(value = "/cidades-por-uf/{uf}")
+	public ResponseEntity<DefaultResponse> getCityByState(@PathVariable("uf") String uf) {	
+		DefaultResponse response = cityService.getCityByState(uf);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 }

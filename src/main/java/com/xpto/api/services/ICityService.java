@@ -17,4 +17,6 @@ public interface ICityService {
 	DefaultResponse getMaxMinCidadeByState();
 
 	DefaultResponse getCityByIbge(Long ibge);
+
+	DefaultResponse getCityByState(String uf);
 }
