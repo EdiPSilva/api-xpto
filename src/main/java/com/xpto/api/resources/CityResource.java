@@ -111,4 +111,11 @@ public class CityResource {
 	{	
 		return cityService.getFilterByColumn(filters, page, pagesize);
 	}
+	
+	//Buscar a maior distância entre as cidades em Km.
+	@GetMapping(value = "/distance")
+	public ResponseEntity<DefaultResponse> longestDistanceBetweenCities() {		
+		DefaultResponse response = cityService.longestDistanceBetweenCities();
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
 }

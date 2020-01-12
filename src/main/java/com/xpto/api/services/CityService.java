@@ -19,18 +19,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.xpto.api.dto.LongesDistanceCityDTO;
 import com.xpto.api.entities.City;
 import com.xpto.api.exceptions.CitiesException;
 import com.xpto.api.exceptions.DefaultException;
 import com.xpto.api.repositories.CityRepository;
 import com.xpto.api.responses.DefaultResponse;
-import com.xpto.api.specification.CitySpecification;
 import com.xpto.api.util.Util;
 
 @Service
@@ -140,8 +139,7 @@ public class CityService implements ICityService {
 			if (listCity.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listCity.size()), listCity);
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listCity.size()), listCity);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -155,8 +153,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -173,8 +170,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -194,8 +190,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -230,8 +225,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -253,8 +247,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject, "Cidade removida com sucesso.");
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject, "Cidade removida com sucesso.");
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -270,8 +263,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject, "Cidade cadastrada ou atualizada com sucesso.");
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject, "Cidade cadastrada ou atualizada com sucesso.");
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -292,8 +284,7 @@ public class CityService implements ICityService {
 				status = HttpStatus.NO_CONTENT;
 			}
 			
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
-			return response;
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
@@ -359,8 +350,65 @@ public class CityService implements ICityService {
 	@Override
 	public Page<City> getFilterByColumn(Map<String, String> filters, Integer page, Integer pageSize) {
 		try {
-			System.out.println(page+" - "+pageSize);
-			return cityRepository.findAll(filterWithOptions(filters), PageRequest.of(page, pageSize));	        
+			return cityRepository.findAll(filterWithOptions(filters), PageRequest.of(page, pageSize, Direction.ASC, "ibgeId"));	        
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+	
+	private double calculateDistance(double lat1, double lat2, double lon1, double lon2) {
+		
+		return (((Math.acos(
+					Math.sin(lat1 * Math.PI / 180.0) * 
+					Math.sin(lat2 * Math.PI / 180.0) +
+					Math.cos(lat1 * Math.PI / 180.0) * 
+					Math.cos(lat2 * Math.PI / 180.0) * 
+					Math.cos((lon1 - lon2) * Math.PI / 180.0))
+				) * 180 / Math.PI
+				) * 60 * 1.1515
+				) * 1.609344; //Converte para KM;
+	}
+
+	@Override
+	public DefaultResponse longestDistanceBetweenCities() {
+		try {			
+			
+			List<City> listCity = cityRepository.findAll();
+			
+			double longestDistance = 0;
+			
+			City city1 = null;
+			City city2 = null;
+			
+			for (City c1 : listCity) {
+				for (City c2 : listCity) {
+					if (!c1.equals(c2)) {
+						
+						double auxLongestDistance = calculateDistance(
+								c1.getLat(), 
+								c2.getLat(), 
+								c1.getLon(), 
+								c2.getLon());
+						
+						if (auxLongestDistance > longestDistance) {
+							longestDistance = auxLongestDistance;
+							city1 = c1;
+							city2 = c2;
+						}
+					}
+				}
+			}
+			
+			LongesDistanceCityDTO dto = new LongesDistanceCityDTO(city1, city2, longestDistance);
+			
+			List<Object> listObject = Util.castObjectList(Arrays.asList(dto), Object.class);
+			
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			
+			return new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}

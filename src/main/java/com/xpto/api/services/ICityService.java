@@ -33,4 +33,6 @@ public interface ICityService {
 	DefaultResponse getQuantityColumn(String column);
 
 	Page<City> getFilterByColumn(Map<String, String> filters, Integer page, Integer pageSize);
+
+	DefaultResponse longestDistanceBetweenCities();
 }
