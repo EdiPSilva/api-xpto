@@ -90,4 +90,11 @@ public class CityResource {
 		DefaultResponse response = cityService.insertOrUpdateCity(city);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
+	
+	//Buscar a quantidade de registro a partir de uma coluna.
+	@GetMapping(value = "/quantity-column/{column}")
+	public ResponseEntity<DefaultResponse> getQuantityColumn(@PathVariable("column") String column) {	
+		DefaultResponse response = cityService.getQuantityColumn(column);
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
 }

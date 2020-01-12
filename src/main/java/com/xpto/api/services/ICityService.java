@@ -26,4 +26,6 @@ public interface ICityService {
 	DefaultResponse deleteCityByIbge(Long ibge);
 
 	DefaultResponse insertOrUpdateCity(City city);
+
+	DefaultResponse getQuantityColumn(String column);
 }

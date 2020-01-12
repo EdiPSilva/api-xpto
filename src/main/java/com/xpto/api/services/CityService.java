@@ -6,10 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -130,7 +133,7 @@ public class CityService implements ICityService {
 			if (listCity.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listCity.size()), listCity);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listCity.size()), listCity);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -145,7 +148,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -163,7 +166,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -184,7 +187,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -204,7 +207,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -220,7 +223,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -243,7 +246,7 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject, "Cidade removida com sucesso.");
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject, "Cidade removida com sucesso.");
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -260,9 +263,88 @@ public class CityService implements ICityService {
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", new Long(listObject.size()), listObject, "Cidade cadastrada ou atualizada com sucesso.");
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject, "Cidade cadastrada ou atualizada com sucesso.");
 			return response;
 		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public DefaultResponse getQuantityColumn(String column) {
+		try {
+			Long quantity  = (long) cityRepository.findAll().stream().map(c -> {return checkColumnExist(c, column);}).distinct().collect(Collectors.toList()).size();
+			
+			Map<String, Long> map = new HashMap<String, Long>();
+			map.put(column, quantity);
+			
+			List<Object> listObject = Util.castObjectList(Arrays.asList(map), Object.class);
+			
+			HttpStatus status = HttpStatus.OK;
+			if (listObject.isEmpty()) {
+				status = HttpStatus.NO_CONTENT;
+			}
+			
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
+			return response;
+		} catch (Exception e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+	
+	//O switch faz a identificação e retorna o nome do campo corretamente pertinente a entidade City
+	private Object checkColumnExist(City city, String column) {
+		
+		switch (column.toLowerCase()) {
+			case "ibge_id":
+			case "ibgeid":
+				column = "ibgeId";
+				break;
+			case "uf":
+				column = "uf";
+				break;
+			case "name":
+				column = "name";
+				break;
+			case "capital":
+				column = "capital";
+				break;
+			case "lon":
+				column = "lon";
+				break;
+			case "lat":
+				column = "lat";
+				break;
+			case "noaccents":
+			case "no_accents":
+				column = "noAccents";
+				break;
+			case "alternativenames":
+			case "alternative_names":
+				column = "alternativeNames";
+				break;
+			case "microregion":
+				column = "microregion";
+				break;
+			case "mesoregio":
+				column = "mesoregio";
+				break;
+			default:
+				column = null;
+				break;
+		}
+		
+		if (column == null) {
+			throw new DefaultException("A coluna enviada não existe na base de dados.", HttpStatus.BAD_REQUEST);
+		}
+		
+		try {
+			Object bjField = null;
+			Field field = city.getClass().getDeclaredField(column);
+			field.setAccessible(true);
+			return field.get(city);
+			
+		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
