@@ -40,7 +40,7 @@ public class CityResource {
 	}
 	
 	//Burcas as cidades capitais na base de dados.
-	@GetMapping(value = "/cities")
+	@GetMapping(value = "/capitals")
 	public ResponseEntity<DefaultResponse> getCapitals() {
 		DefaultResponse response = cityService.findCapitals();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
