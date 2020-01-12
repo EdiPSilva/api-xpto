@@ -1,8 +1,12 @@
 package com.xpto.api.resources;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -96,5 +100,15 @@ public class CityResource {
 	public ResponseEntity<DefaultResponse> getQuantityColumn(@PathVariable("column") String column) {	
 		DefaultResponse response = cityService.getQuantityColumn(column);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
+	
+	//Busca objetos a partir de coluna (filtro)
+	@GetMapping(value = "/filter-column")
+	public Page<City> getFilterByColumn(
+			@RequestParam(required = false) Map<String, String> filters,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer pagesize)
+	{	
+		return cityService.getFilterByColumn(filters, page, pagesize);
 	}
 }

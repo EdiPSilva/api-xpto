@@ -1,7 +1,10 @@
 package com.xpto.api.services;
 
 import java.io.IOException;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xpto.api.entities.City;
@@ -28,4 +31,6 @@ public interface ICityService {
 	DefaultResponse insertOrUpdateCity(City city);
 
 	DefaultResponse getQuantityColumn(String column);
+
+	Page<City> getFilterByColumn(Map<String, String> filters, Integer page, Integer pageSize);
 }

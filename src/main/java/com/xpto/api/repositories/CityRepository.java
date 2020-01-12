@@ -2,6 +2,9 @@ package com.xpto.api.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -26,4 +29,6 @@ public interface CityRepository extends JpaRepository<City, Long>  {
 
 	@Query(value = "select count(ibge_id) from tb_city", nativeQuery = true)
 	Long getTotal();
+
+	Page<City> findAll(Specification<City> filterWithOptions, Pageable pageable);
 }

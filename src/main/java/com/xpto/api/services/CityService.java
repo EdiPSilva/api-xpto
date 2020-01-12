@@ -1,5 +1,7 @@
 package com.xpto.api.services;
 
+import static com.xpto.api.specification.CitySpecification.filterWithOptions;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +17,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +30,7 @@ import com.xpto.api.exceptions.CitiesException;
 import com.xpto.api.exceptions.DefaultException;
 import com.xpto.api.repositories.CityRepository;
 import com.xpto.api.responses.DefaultResponse;
+import com.xpto.api.specification.CitySpecification;
 import com.xpto.api.util.Util;
 
 @Service
@@ -345,6 +352,16 @@ public class CityService implements ICityService {
 			return field.get(city);
 			
 		} catch (IllegalArgumentException | IllegalAccessException | SecurityException | NoSuchFieldException e) {
+			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
+		}
+	}
+
+	@Override
+	public Page<City> getFilterByColumn(Map<String, String> filters, Integer page, Integer pageSize) {
+		try {
+			System.out.println(page+" - "+pageSize);
+			return cityRepository.findAll(filterWithOptions(filters), PageRequest.of(page, pageSize));	        
+		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
