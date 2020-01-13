@@ -1,0 +1,2114 @@
+{
+	"info": {
+		"_postman_id": "c353fd36-e925-4cd1-be5c-4d675072de9b",
+		"name": "API XPTO",
+		"description": "Esta API é responsável por realizar buscas de cidades localizadas no Brasil bem como sua geolocalização.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload de Arquivo Tipo CSV",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"upload"
+					]
+				},
+				"description": "Esta requisição realiza o upload de arquivo .csv para alimentar a base de dados"
+			},
+			"response": [
+				{
+					"name": "Upload de Arquivo Tipo CSV inválido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/my_documents/imagens/IMG-20170802-WA0012-2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/city/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"upload"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:14:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-01-13T00:14:13.124+0000\",\n    \"status\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Por favor envie somente arquivos do tipo csv.\",\n    \"path\": \"/city/upload\"\n}"
+				},
+				{
+					"name": "Upload de Arquivo Tipo CSV válido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/teste_senior/Desafio Cidades - Back End.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/city/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"upload"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "98"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:11:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Foi realizado o upload do arquivo Desafio Cidades - Back End.csv e importado para a base de dados."
+				}
+			]
+		},
+		{
+			"name": "Busca Capitais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9577b9fe-fe9e-4f9e-b6ab-951d4b30ee4f",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/capitals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"capitals"
+					]
+				},
+				"description": "Requisição responsável por buscar as capitais na base de dados."
+			},
+			"response": [
+				{
+					"name": "Busca Capitais",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/capitals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"capitals"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:53:32 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 27,\n    \"data\": [\n        {\n            \"ibgeId\": 1100205,\n            \"uf\": \"RO\",\n            \"name\": \"Porto Velho\",\n            \"capital\": \"true\",\n            \"lon\": -63.8314456544,\n            \"lat\": -8.76889179,\n            \"noAccents\": \"Porto Velho\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Porto Velho\",\n            \"mesoregio\": \"Madeira-Guapor\"\n        },\n        {\n            \"ibgeId\": 1200401,\n            \"uf\": \"AC\",\n            \"name\": \"Rio Branco\",\n            \"capital\": \"true\",\n            \"lon\": -67.8105287004,\n            \"lat\": -9.9782987527,\n            \"noAccents\": \"Rio Branco\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Rio Branco\",\n            \"mesoregio\": \"Vale do Acre\"\n        },\n        {\n            \"ibgeId\": 1302603,\n            \"uf\": \"AM\",\n            \"name\": \"Manaus\",\n            \"capital\": \"true\",\n            \"lon\": -60.0233351811,\n            \"lat\": -3.1346914912,\n            \"noAccents\": \"Manaus\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Manaus\",\n            \"mesoregio\": \"Centro Amazonense\"\n        },\n        {\n            \"ibgeId\": 1400100,\n            \"uf\": \"RR\",\n            \"name\": \"Boa Vista\",\n            \"capital\": \"true\",\n            \"lon\": -60.670532673,\n            \"lat\": 2.8166819191,\n            \"noAccents\": \"Boa Vista\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Boa Vista\",\n            \"mesoregio\": \"Norte de Roraima\"\n        },\n        {\n            \"ibgeId\": 1501402,\n            \"uf\": \"PA\",\n            \"name\": \"Belm\",\n            \"capital\": \"true\",\n            \"lon\": -48.4878256875,\n            \"lat\": -1.459845,\n            \"noAccents\": \"Belem\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Belm\",\n            \"mesoregio\": \"Metropolitana de Belm\"\n        },\n        {\n            \"ibgeId\": 1600303,\n            \"uf\": \"AP\",\n            \"name\": \"Macap\",\n            \"capital\": \"true\",\n            \"lon\": -51.057405457,\n            \"lat\": 0.03895101,\n            \"noAccents\": \"Macapa\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Macap\",\n            \"mesoregio\": \"Sul do Amap\"\n        },\n        {\n            \"ibgeId\": 1721000,\n            \"uf\": \"TO\",\n            \"name\": \"Palmas\",\n            \"capital\": \"true\",\n            \"lon\": -48.3510437082,\n            \"lat\": -10.1632533268,\n            \"noAccents\": \"Palmas\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Porto Nacional\",\n            \"mesoregio\": \"Oriental do Tocantins\"\n        },\n        {\n            \"ibgeId\": 2111300,\n            \"uf\": \"MA\",\n            \"name\": \"So Lus\",\n            \"capital\": \"true\",\n            \"lon\": -44.2979185642,\n            \"lat\": -2.5318859851,\n            \"noAccents\": \"Sao Luis\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Aglomerao Urbana de So Lus\",\n            \"mesoregio\": \"Norte Maranhense\"\n        },\n        {\n            \"ibgeId\": 2211001,\n            \"uf\": \"PI\",\n            \"name\": \"Teresina\",\n            \"capital\": \"true\",\n            \"lon\": -42.8052704582,\n            \"lat\": -5.0863419523,\n            \"noAccents\": \"Teresina\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Teresina\",\n            \"mesoregio\": \"Centro-Norte Piauiense\"\n        },\n        {\n            \"ibgeId\": 2304400,\n            \"uf\": \"CE\",\n            \"name\": \"Fortaleza\",\n            \"capital\": \"true\",\n            \"lon\": -38.589927555,\n            \"lat\": -3.723805035,\n            \"noAccents\": \"Fortaleza\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Fortaleza\",\n            \"mesoregio\": \"Metropolitana de Fortaleza\"\n        },\n        {\n            \"ibgeId\": 2408102,\n            \"uf\": \"RN\",\n            \"name\": \"Natal\",\n            \"capital\": \"true\",\n            \"lon\": -35.2522547281,\n            \"lat\": -5.7508985376,\n            \"noAccents\": \"Natal\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Natal\",\n            \"mesoregio\": \"Leste Potiguar\"\n        },\n        {\n            \"ibgeId\": 2507507,\n            \"uf\": \"PB\",\n            \"name\": \"Joo Pessoa\",\n            \"capital\": \"true\",\n            \"lon\": -34.8733848135,\n            \"lat\": -7.14938202,\n            \"noAccents\": \"Joao Pessoa\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Joo Pessoa\",\n            \"mesoregio\": \"Mata Paraibana\"\n        },\n        {\n            \"ibgeId\": 2611606,\n            \"uf\": \"PE\",\n            \"name\": \"Recife\",\n            \"capital\": \"true\",\n            \"lon\": -34.8889419446,\n            \"lat\": -8.0627624831,\n            \"noAccents\": \"Recife\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Recife\",\n            \"mesoregio\": \"Metropolitana de Recife\"\n        },\n        {\n            \"ibgeId\": 2704302,\n            \"uf\": \"AL\",\n            \"name\": \"Macei\",\n            \"capital\": \"true\",\n            \"lon\": -35.7016299135,\n            \"lat\": -9.6608221516,\n            \"noAccents\": \"Maceio\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Macei\",\n            \"mesoregio\": \"Leste Alagoano\"\n        },\n        {\n            \"ibgeId\": 2800308,\n            \"uf\": \"SE\",\n            \"name\": \"Aracaju\",\n            \"capital\": \"true\",\n            \"lon\": -37.0482126395,\n            \"lat\": -10.9072157979,\n            \"noAccents\": \"Aracaju\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Aracaju\",\n            \"mesoregio\": \"Leste Sergipano\"\n        },\n        {\n            \"ibgeId\": 2927408,\n            \"uf\": \"BA\",\n            \"name\": \"Salvador\",\n            \"capital\": \"true\",\n            \"lon\": -38.488061484,\n            \"lat\": -13.0147719115,\n            \"noAccents\": \"Salvador\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Salvador\",\n            \"mesoregio\": \"Metropolitana de Salvador\"\n        },\n        {\n            \"ibgeId\": 3106200,\n            \"uf\": \"MG\",\n            \"name\": \"Belo Horizonte\",\n            \"capital\": \"true\",\n            \"lon\": -43.9264531735,\n            \"lat\": -19.9375242938,\n            \"noAccents\": \"Belo Horizonte\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Belo Horizonte\",\n            \"mesoregio\": \"Metropolitana de Belo Horizonte\"\n        },\n        {\n            \"ibgeId\": 3205309,\n            \"uf\": \"ES\",\n            \"name\": \"Vitria\",\n            \"capital\": \"true\",\n            \"lon\": -40.3222087267,\n            \"lat\": -20.3201537929,\n            \"noAccents\": \"Vitoria\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Vitria\",\n            \"mesoregio\": \"Central Esprito-Santense\"\n        },\n        {\n            \"ibgeId\": 3304557,\n            \"uf\": \"RJ\",\n            \"name\": \"Rio de Janeiro\",\n            \"capital\": \"true\",\n            \"lon\": -43.227875125,\n            \"lat\": -22.8766521182,\n            \"noAccents\": \"Rio de Janeiro\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Rio de Janeiro\",\n            \"mesoregio\": \"Metropolitana do Rio de Janeiro\"\n        },\n        {\n            \"ibgeId\": 3550308,\n            \"uf\": \"SP\",\n            \"name\": \"So Paulo\",\n            \"capital\": \"true\",\n            \"lon\": -46.5703831821,\n            \"lat\": -23.5673865,\n            \"noAccents\": \"Sao Paulo\",\n            \"alternativeNames\": null,\n            \"microregion\": \"So Paulo\",\n            \"mesoregio\": \"Metropolitana de So Paulo\"\n        },\n        {\n            \"ibgeId\": 4106902,\n            \"uf\": \"PR\",\n            \"name\": \"Curitiba\",\n            \"capital\": \"true\",\n            \"lon\": -49.2718478851,\n            \"lat\": -25.432956,\n            \"noAccents\": \"Curitiba\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Curitiba\",\n            \"mesoregio\": \"Metropolitana de Curitiba\"\n        },\n        {\n            \"ibgeId\": 4205407,\n            \"uf\": \"SC\",\n            \"name\": \"Florianpolis\",\n            \"capital\": \"true\",\n            \"lon\": -48.5476373782,\n            \"lat\": -27.5877955486,\n            \"noAccents\": \"Florianopolis\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Florianpolis\",\n            \"mesoregio\": \"Grande Florianpolis\"\n        },\n        {\n            \"ibgeId\": 4314902,\n            \"uf\": \"RS\",\n            \"name\": \"Porto Alegre\",\n            \"capital\": \"true\",\n            \"lon\": -51.2286604637,\n            \"lat\": -30.0300367748,\n            \"noAccents\": \"Porto Alegre\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Porto Alegre\",\n            \"mesoregio\": \"Metropolitana de Porto Alegre\"\n        },\n        {\n            \"ibgeId\": 5002704,\n            \"uf\": \"MS\",\n            \"name\": \"Campo Grande\",\n            \"capital\": \"true\",\n            \"lon\": -54.6157435665,\n            \"lat\": -20.4580299879,\n            \"noAccents\": \"Campo Grande\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Campo Grande\",\n            \"mesoregio\": \"Centro Norte de Mato Grosso do Sul\"\n        },\n        {\n            \"ibgeId\": 5103403,\n            \"uf\": \"MT\",\n            \"name\": \"Cuiab\",\n            \"capital\": \"true\",\n            \"lon\": -56.0732520382,\n            \"lat\": -15.5699890131,\n            \"noAccents\": \"Cuiaba\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cuiab\",\n            \"mesoregio\": \"Centro-Sul Mato-Grossense\"\n        },\n        {\n            \"ibgeId\": 5208707,\n            \"uf\": \"GO\",\n            \"name\": \"Goinia\",\n            \"capital\": \"true\",\n            \"lon\": -49.2558142758,\n            \"lat\": -16.6733097738,\n            \"noAccents\": \"Goiania\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Goinia\",\n            \"mesoregio\": \"Centro Goiano\"\n        },\n        {\n            \"ibgeId\": 5300108,\n            \"uf\": \"DF\",\n            \"name\": \"Braslia\",\n            \"capital\": \"true\",\n            \"lon\": -47.887905478,\n            \"lat\": -15.7940873619,\n            \"noAccents\": \"Brasilia\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Braslia\",\n            \"mesoregio\": \"Distrito Federal\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Min Max Quantidades de Cidades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fe203ec-8ca9-436c-b47f-fbdd6186aeae",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/max-min-cities-state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"max-min-cities-state"
+					]
+				},
+				"description": "Requisição responsável por buscar os estados com a maior e menor quantidade de cidades."
+			},
+			"response": [
+				{
+					"name": "Min Max Quantidades de Cidades",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/max-min-cities-state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"max-min-cities-state"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:53:58 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 2,\n    \"data\": [\n        [\n            [\n                853,\n                \"MG\"\n            ]\n        ],\n        [\n            [\n                15,\n                \"RR\"\n            ]\n        ]\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Contagem Cidades por UF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "220eec13-4160-49cc-a608-61f855d41c8c",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/quantity-cities-by-state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"quantity-cities-by-state"
+					]
+				},
+				"description": "Requisição responsável por realizar a contagem de cidades por estado."
+			},
+			"response": [
+				{
+					"name": "Contagem de Cidades por UF",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/quantity-cities-by-state",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"quantity-cities-by-state"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:54:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 27,\n    \"data\": [\n        [\n            \"AC\",\n            22\n        ],\n        [\n            \"AL\",\n            102\n        ],\n        [\n            \"AM\",\n            62\n        ],\n        [\n            \"AP\",\n            16\n        ],\n        [\n            \"BA\",\n            417\n        ],\n        [\n            \"CE\",\n            184\n        ],\n        [\n            \"DF\",\n            1\n        ],\n        [\n            \"ES\",\n            78\n        ],\n        [\n            \"GO\",\n            246\n        ],\n        [\n            \"MA\",\n            217\n        ],\n        [\n            \"MG\",\n            853\n        ],\n        [\n            \"MS\",\n            78\n        ],\n        [\n            \"MT\",\n            141\n        ],\n        [\n            \"PA\",\n            143\n        ],\n        [\n            \"PB\",\n            223\n        ],\n        [\n            \"PE\",\n            185\n        ],\n        [\n            \"PI\",\n            224\n        ],\n        [\n            \"PR\",\n            399\n        ],\n        [\n            \"RJ\",\n            92\n        ],\n        [\n            \"RN\",\n            167\n        ],\n        [\n            \"RO\",\n            53\n        ],\n        [\n            \"RR\",\n            15\n        ],\n        [\n            \"RS\",\n            496\n        ],\n        [\n            \"SC\",\n            293\n        ],\n        [\n            \"SE\",\n            75\n        ],\n        [\n            \"SP\",\n            645\n        ],\n        [\n            \"TO\",\n            139\n        ]\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Busca por IBGE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e29e3051-f7d4-457b-a651-cb6a4061732a",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/1100015",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"1100015"
+					]
+				},
+				"description": "Requisição responsável por realizar a busca de cidade por cógido IBGE."
+			},
+			"response": [
+				{
+					"name": "Busca cidade por IBGE válido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/1100015",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"1100015"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:54:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        {\n            \"ibgeId\": 1100015,\n            \"uf\": \"RO\",\n            \"name\": \"Alta Floresta D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.9998238963,\n            \"lat\": -11.9355403048,\n            \"noAccents\": \"Alta Floresta D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "Busca por Código de IBGE inválido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/110006789",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"110006789"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:02:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        null\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Lista Cidade por UF",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c3f40a0-206b-4bef-8426-c34639548375",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/cities-by-state/SP",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"cities-by-state",
+						"SP"
+					]
+				},
+				"description": "Requisição responsável por listas as cidade por UF."
+			},
+			"response": [
+				{
+					"name": "Lista de Cidades por UF Válida",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/cities-by-state/SP",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"cities-by-state",
+								"SP"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:55:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 645,\n    \"data\": [\n        \"Adamantina\",\n        \"Adolfo\",\n        \"Agua\",\n        \"Agudos\",\n        \"Alambari\",\n        \"Alfredo Marcondes\",\n        \"Altair\",\n        \"Altinpolis\",\n        \"Alto Alegre\",\n        \"Alumnio\",\n        \"Alvinlndia\",\n        \"Americana\",\n        \"Amparo\",\n        \"Amrico Brasiliense\",\n        \"Amrico de Campos\",\n        \"Analndia\",\n        \"Andradina\",\n        \"Angatuba\",\n        \"Anhembi\",\n        \"Anhumas\",\n        \"Aparecida\",\n        \"Aparecida d'Oeste\",\n        \"Apia\",\n        \"Araariguama\",\n        \"Araatuba\",\n        \"Aramina\",\n        \"Arandu\",\n        \"Araoiaba da Serra\",\n        \"Arape\",\n        \"Araraquara\",\n        \"Araras\",\n        \"Arco-ris\",\n        \"Arealva\",\n        \"Areias\",\n        \"Areipolis\",\n        \"Ariranha\",\n        \"Artur Nogueira\",\n        \"Aruj\",\n        \"Aspsia\",\n        \"Assis\",\n        \"Atibaia\",\n        \"Auriflama\",\n        \"Ava\",\n        \"Avanhandava\",\n        \"Avar\",\n        \"Bady Bassitt\",\n        \"Balbinos\",\n        \"Bananal\",\n        \"Barbosa\",\n        \"Bariri\",\n        \"Baro de Antonina\",\n        \"Barra Bonita\",\n        \"Barra do Chapu\",\n        \"Barra do Turvo\",\n        \"Barretos\",\n        \"Barrinha\",\n        \"Barueri\",\n        \"Bastos\",\n        \"Batatais\",\n        \"Bauru\",\n        \"Bebedouro\",\n        \"Bento de Abreu\",\n        \"Bernardino de Campos\",\n        \"Bertioga\",\n        \"Bilac\",\n        \"Birigui\",\n        \"Biritiba-Mirim\",\n        \"Blsamo\",\n        \"Boa Esperana do Sul\",\n        \"Bocaina\",\n        \"Bofete\",\n        \"Boituva\",\n        \"Bom Jesus dos Perdes\",\n        \"Bom Sucesso de Itarar\",\n        \"Bor\",\n        \"Boracia\",\n        \"Borborema\",\n        \"Borebi\",\n        \"Botucatu\",\n        \"Bragana Paulista\",\n        \"Brana\",\n        \"Brejo Alegre\",\n        \"Brodowski\",\n        \"Brotas\",\n        \"Buri\",\n        \"Buritama\",\n        \"Buritizal\",\n        \"Caapava\",\n        \"Cabreva\",\n        \"Cabrlia Paulista\",\n        \"Cachoeira Paulista\",\n        \"Caconde\",\n        \"Cafelndia\",\n        \"Caiabu\",\n        \"Caieiras\",\n        \"Caiu\",\n        \"Cajamar\",\n        \"Cajati\",\n        \"Cajobi\",\n        \"Cajuru\",\n        \"Campina do Monte Alegre\",\n        \"Campinas\",\n        \"Campo Limpo Paulista\",\n        \"Campos Novos Paulista\",\n        \"Campos do Jordo\",\n        \"Canania\",\n        \"Canas\",\n        \"Canitar\",\n        \"Capela do Alto\",\n        \"Capivari\",\n        \"Capo Bonito\",\n        \"Caraguatatuba\",\n        \"Carapicuba\",\n        \"Cardoso\",\n        \"Casa Branca\",\n        \"Castilho\",\n        \"Catanduva\",\n        \"Catigu\",\n        \"Cedral\",\n        \"Cerqueira Csar\",\n        \"Cerquilho\",\n        \"Cesrio Lange\",\n        \"Charqueada\",\n        \"Chavantes\",\n        \"Clementina\",\n        \"Cndido Mota\",\n        \"Cndido Rodrigues\",\n        \"Colina\",\n        \"Colmbia\",\n        \"Conchal\",\n        \"Conchas\",\n        \"Cordeirpolis\",\n        \"Coroados\",\n        \"Coronel Macedo\",\n        \"Corumbata\",\n        \"Cosmorama\",\n        \"Cosmpolis\",\n        \"Cotia\",\n        \"Cravinhos\",\n        \"Cristais Paulista\",\n        \"Cruzeiro\",\n        \"Cruzlia\",\n        \"Cssia dos Coqueiros\",\n        \"Cubato\",\n        \"Cunha\",\n        \"Descalvado\",\n        \"Diadema\",\n        \"Dirce Reis\",\n        \"Divinolndia\",\n        \"Dobrada\",\n        \"Dois Crregos\",\n        \"Dolcinpolis\",\n        \"Dourado\",\n        \"Dracena\",\n        \"Duartina\",\n        \"Dumont\",\n        \"Echapor\",\n        \"Eldorado\",\n        \"Elias Fausto\",\n        \"Elisirio\",\n        \"Embaba\",\n        \"Embu\",\n        \"Embu-Guau\",\n        \"Emilianpolis\",\n        \"Engenheiro Coelho\",\n        \"Esprito Santo do Pinhal\",\n        \"Esprito Santo do Turvo\",\n        \"Estiva Gerbi\",\n        \"Estrela d'Oeste\",\n        \"Estrela do Norte\",\n        \"Euclides da Cunha Paulista\",\n        \"Fartura\",\n        \"Fernando Prestes\",\n        \"Fernandpolis\",\n        \"Ferno\",\n        \"Ferraz de Vasconcelos\",\n        \"Flora Rica\",\n        \"Floreal\",\n        \"Flornia\",\n        \"Flrida Paulista\",\n        \"Franca\",\n        \"Francisco Morato\",\n        \"Franco da Rocha\",\n        \"Gabriel Monteiro\",\n        \"Gara\",\n        \"Gasto Vidigal\",\n        \"Gavio Peixoto\",\n        \"General Salgado\",\n        \"Getulina\",\n        \"Glia\",\n        \"Glicrio\",\n        \"Guaiara\",\n        \"Guaimb\",\n        \"Guapiara\",\n        \"Guapiau\",\n        \"Guar\",\n        \"Guara\",\n        \"Guaraa\",\n        \"Guaraci\",\n        \"Guarani d'Oeste\",\n        \"Guarant\",\n        \"Guararapes\",\n        \"Guararema\",\n        \"Guaratinguet\",\n        \"Guare\",\n        \"Guariba\",\n        \"Guaruj\",\n        \"Guarulhos\",\n        \"Guatapar\",\n        \"Guzolndia\",\n        \"Herculndia\",\n        \"Holambra\",\n        \"Hortolndia\",\n        \"Iacanga\",\n        \"Iacri\",\n        \"Iaras\",\n        \"Ibat\",\n        \"Ibina\",\n        \"Ibir\",\n        \"Ibirarema\",\n        \"Ibitinga\",\n        \"Icm\",\n        \"Iep\",\n        \"Igarapava\",\n        \"Igarat\",\n        \"Igarau do Tiet\",\n        \"Iguape\",\n        \"Ilha Comprida\",\n        \"Ilha Solteira\",\n        \"Ilhabela\",\n        \"Inbia Paulista\",\n        \"Indaiatuba\",\n        \"Indiana\",\n        \"Indiapor\",\n        \"Ipaussu\",\n        \"Ipena\",\n        \"Iper\",\n        \"Ipigu\",\n        \"Iporanga\",\n        \"Ipu\",\n        \"Iracempolis\",\n        \"Irapu\",\n        \"Irapuru\",\n        \"Ita\",\n        \"Itaber\",\n        \"Itaca\",\n        \"Itajobi\",\n        \"Itaju\",\n        \"Itanham\",\n        \"Itapecerica da Serra\",\n        \"Itapetininga\",\n        \"Itapeva\",\n        \"Itapevi\",\n        \"Itapira\",\n        \"Itapirapu Paulista\",\n        \"Itaporanga\",\n        \"Itapu\",\n        \"Itapura\",\n        \"Itaquaquecetuba\",\n        \"Itarar\",\n        \"Itariri\",\n        \"Itatiba\",\n        \"Itatinga\",\n        \"Itirapina\",\n        \"Itirapu\",\n        \"Itobi\",\n        \"Itpolis\",\n        \"Itu\",\n        \"Itupeva\",\n        \"Ituverava\",\n        \"Ja\",\n        \"Jaborandi\",\n        \"Jaboticabal\",\n        \"Jacare\",\n        \"Jaci\",\n        \"Jacupiranga\",\n        \"Jaguarina\",\n        \"Jales\",\n        \"Jambeiro\",\n        \"Jandira\",\n        \"Jardinpolis\",\n        \"Jarinu\",\n        \"Jeriquara\",\n        \"Jlio Mesquita\",\n        \"Joanpolis\",\n        \"Joo Ramalho\",\n        \"Jos Bonifcio\",\n        \"Jumirim\",\n        \"Jundia\",\n        \"Junqueirpolis\",\n        \"Juqui\",\n        \"Juquitiba\",\n        \"Lagoinha\",\n        \"Laranjal Paulista\",\n        \"Lavnia\",\n        \"Lavrinhas\",\n        \"Leme\",\n        \"Lenis Paulista\",\n        \"Limeira\",\n        \"Lindia\",\n        \"Lins\",\n        \"Lorena\",\n        \"Lourdes\",\n        \"Louveira\",\n        \"Lucianpolis\",\n        \"Luclia\",\n        \"Luizinia\",\n        \"Luprcio\",\n        \"Lus Antnio\",\n        \"Lutcia\",\n        \"Macatuba\",\n        \"Macaubal\",\n        \"Macednia\",\n        \"Magda\",\n        \"Mairinque\",\n        \"Mairipor\",\n        \"Manduri\",\n        \"Marab Paulista\",\n        \"Maraca\",\n        \"Marapoama\",\n        \"Marinpolis\",\n        \"Maripolis\",\n        \"Marlia\",\n        \"Martinpolis\",\n        \"Mato\",\n        \"Mau\",\n        \"Mendona\",\n        \"Meridiano\",\n        \"Mespolis\",\n        \"Miguelpolis\",\n        \"Mineiros do Tiet\",\n        \"Mira Estrela\",\n        \"Miracatu\",\n        \"Mirandpolis\",\n        \"Mirante do Paranapanema\",\n        \"Mirassol\",\n        \"Mirassolndia\",\n        \"Mococa\",\n        \"Mogi Guau\",\n        \"Mogi das Cruzes\",\n        \"Moji Mirim\",\n        \"Mombuca\",\n        \"Mones\",\n        \"Mongagu\",\n        \"Monte Alegre do Sul\",\n        \"Monte Alto\",\n        \"Monte Aprazvel\",\n        \"Monte Azul Paulista\",\n        \"Monte Castelo\",\n        \"Monte Mor\",\n        \"Monteiro Lobato\",\n        \"Morro Agudo\",\n        \"Morungaba\",\n        \"Motuca\",\n        \"Murutinga do Sul\",\n        \"Nantes\",\n        \"Narandiba\",\n        \"Natividade da Serra\",\n        \"Nazar Paulista\",\n        \"Neves Paulista\",\n        \"Nhandeara\",\n        \"Nipo\",\n        \"Nova Aliana\",\n        \"Nova Campina\",\n        \"Nova Cana Paulista\",\n        \"Nova Castilho\",\n        \"Nova Europa\",\n        \"Nova Granada\",\n        \"Nova Guataporanga\",\n        \"Nova Independncia\",\n        \"Nova Luzitnia\",\n        \"Nova Odessa\",\n        \"Novais\",\n        \"Novo Horizonte\",\n        \"Nuporanga\",\n        \"Ocauu\",\n        \"Olmpia\",\n        \"Onda Verde\",\n        \"Oriente\",\n        \"Orindiva\",\n        \"Orlndia\",\n        \"Osasco\",\n        \"Oscar Bressane\",\n        \"Osvaldo Cruz\",\n        \"Ourinhos\",\n        \"Ouro Verde\",\n        \"Ouroeste\",\n        \"Pacaembu\",\n        \"Palestina\",\n        \"Palmares Paulista\",\n        \"Palmeira d'Oeste\",\n        \"Palmital\",\n        \"Panorama\",\n        \"Paraguau Paulista\",\n        \"Paraibuna\",\n        \"Paranapanema\",\n        \"Paranapu\",\n        \"Parapu\",\n        \"Paraso\",\n        \"Pardinho\",\n        \"Pariquera-Au\",\n        \"Parisi\",\n        \"Patrocnio Paulista\",\n        \"Paulicia\",\n        \"Paulistnia\",\n        \"Paulnia\",\n        \"Paulo de Faria\",\n        \"Pederneiras\",\n        \"Pedra Bela\",\n        \"Pedranpolis\",\n        \"Pedregulho\",\n        \"Pedreira\",\n        \"Pedrinhas Paulista\",\n        \"Pedro de Toledo\",\n        \"Penpolis\",\n        \"Pereira Barreto\",\n        \"Pereiras\",\n        \"Perube\",\n        \"Piacatu\",\n        \"Piedade\",\n        \"Pilar do Sul\",\n        \"Pindamonhangaba\",\n        \"Pindorama\",\n        \"Pinhalzinho\",\n        \"Piquerobi\",\n        \"Piquete\",\n        \"Piracaia\",\n        \"Piracicaba\",\n        \"Piraju\",\n        \"Piraju\",\n        \"Pirangi\",\n        \"Pirapora do Bom Jesus\",\n        \"Pirapozinho\",\n        \"Pirassununga\",\n        \"Piratininga\",\n        \"Pitangueiras\",\n        \"Planalto\",\n        \"Platina\",\n        \"Po\",\n        \"Poloni\",\n        \"Pompia\",\n        \"Ponga\",\n        \"Pontal\",\n        \"Pontalinda\",\n        \"Pontes Gestal\",\n        \"Populina\",\n        \"Porangaba\",\n        \"Porto Feliz\",\n        \"Porto Ferreira\",\n        \"Potim\",\n        \"Potirendaba\",\n        \"Pracinha\",\n        \"Pradpolis\",\n        \"Praia Grande\",\n        \"Pratnia\",\n        \"Presidente Alves\",\n        \"Presidente Bernardes\",\n        \"Presidente Epitcio\",\n        \"Presidente Prudente\",\n        \"Presidente Venceslau\",\n        \"Promisso\",\n        \"Quadra\",\n        \"Quat\",\n        \"Queiroz\",\n        \"Queluz\",\n        \"Quintana\",\n        \"Rafard\",\n        \"Rancharia\",\n        \"Redeno da Serra\",\n        \"Regente Feij\",\n        \"Reginpolis\",\n        \"Registro\",\n        \"Restinga\",\n        \"Ribeira\",\n        \"Ribeiro Bonito\",\n        \"Ribeiro Branco\",\n        \"Ribeiro Corrente\",\n        \"Ribeiro Grande\",\n        \"Ribeiro Pires\",\n        \"Ribeiro Preto\",\n        \"Ribeiro do Sul\",\n        \"Ribeiro dos ndios\",\n        \"Rifaina\",\n        \"Rinco\",\n        \"Rinpolis\",\n        \"Rio Claro\",\n        \"Rio Grande da Serra\",\n        \"Rio das Pedras\",\n        \"Riolndia\",\n        \"Riversul\",\n        \"Rosana\",\n        \"Roseira\",\n        \"Rubicea\",\n        \"Rubinia\",\n        \"Sabino\",\n        \"Sagres\",\n        \"Sales\",\n        \"Sales Oliveira\",\n        \"Salespolis\",\n        \"Salmouro\",\n        \"Saltinho\",\n        \"Salto\",\n        \"Salto Grande\",\n        \"Salto de Pirapora\",\n        \"Sandovalina\",\n        \"Santa Adlia\",\n        \"Santa Albertina\",\n        \"Santa Branca\",\n        \"Santa Brbara d'Oeste\",\n        \"Santa Clara d'Oeste\",\n        \"Santa Cruz da Conceio\",\n        \"Santa Cruz da Esperana\",\n        \"Santa Cruz das Palmeiras\",\n        \"Santa Cruz do Rio Pardo\",\n        \"Santa Ernestina\",\n        \"Santa F do Sul\",\n        \"Santa Gertrudes\",\n        \"Santa Isabel\",\n        \"Santa Lcia\",\n        \"Santa Maria da Serra\",\n        \"Santa Mercedes\",\n        \"Santa Rita d'Oeste\",\n        \"Santa Rita do Passa Quatro\",\n        \"Santa Rosa de Viterbo\",\n        \"Santa Salete\",\n        \"Santana da Ponte Pensa\",\n        \"Santana de Parnaba\",\n        \"Santo Anastcio\",\n        \"Santo Andr\",\n        \"Santo Antnio da Alegria\",\n        \"Santo Antnio de Posse\",\n        \"Santo Antnio do Aracangu\",\n        \"Santo Antnio do Jardim\",\n        \"Santo Antnio do Pinhal\",\n        \"Santo Expedito\",\n        \"Santos\",\n        \"Santpolis do Aguape\",\n        \"Sarapu\",\n        \"Sarutai\",\n        \"Sebastianpolis do Sul\",\n        \"Serra Azul\",\n        \"Serra Negra\",\n        \"Serrana\",\n        \"Sertozinho\",\n        \"Sete Barras\",\n        \"Severnia\",\n        \"Silveiras\",\n        \"So Bento do Sapuca\",\n        \"So Bernardo do Campo\",\n        \"So Caetano do Sul\",\n        \"So Carlos\",\n        \"So Francisco\",\n        \"So Joaquim da Barra\",\n        \"So Joo da Boa Vista\",\n        \"So Joo das Duas Pontes\",\n        \"So Joo de Iracema\",\n        \"So Joo do Pau d'Alho\",\n        \"So Jos da Bela Vista\",\n        \"So Jos do Barreiro\",\n        \"So Jos do Rio Pardo\",\n        \"So Jos do Rio Preto\",\n        \"So Jos dos Campos\",\n        \"So Loureno da Serra\",\n        \"So Lus do Paraitinga\",\n        \"So Manuel\",\n        \"So Miguel Arcanjo\",\n        \"So Paulo\",\n        \"So Pedro\",\n        \"So Pedro do Turvo\",\n        \"So Roque\",\n        \"So Sebastio\",\n        \"So Sebastio da Grama\",\n        \"So Simo\",\n        \"So Vicente\",\n        \"Socorro\",\n        \"Sorocaba\",\n        \"Sud Mennucci\",\n        \"Sumar\",\n        \"Suzano\",\n        \"Suzanpolis\",\n        \"Tabapu\",\n        \"Tabatinga\",\n        \"Taboo da Serra\",\n        \"Taciba\",\n        \"Tagua\",\n        \"Taiau\",\n        \"Taiva\",\n        \"Tamba\",\n        \"Tanabi\",\n        \"Tapira\",\n        \"Tapiratiba\",\n        \"Taquaral\",\n        \"Taquaritinga\",\n        \"Taquarituba\",\n        \"Taquariva\",\n        \"Tarabai\",\n        \"Tarum\",\n        \"Tatu\",\n        \"Taubat\",\n        \"Tejup\",\n        \"Teodoro Sampaio\",\n        \"Terra Roxa\",\n        \"Tiet\",\n        \"Timburi\",\n        \"Torre de Pedra\",\n        \"Torrinha\",\n        \"Trabiju\",\n        \"Trememb\",\n        \"Trs Fronteiras\",\n        \"Tuiuti\",\n        \"Tup\",\n        \"Tupi Paulista\",\n        \"Turiba\",\n        \"Turmalina\",\n        \"Ubarana\",\n        \"Ubatuba\",\n        \"Ubirajara\",\n        \"Uchoa\",\n        \"Unio Paulista\",\n        \"Urnia\",\n        \"Uru\",\n        \"Urups\",\n        \"Valentim Gentil\",\n        \"Valinhos\",\n        \"Valparaso\",\n        \"Vargem\",\n        \"Vargem Grande Paulista\",\n        \"Vargem Grande do Sul\",\n        \"Vera Cruz\",\n        \"Vinhedo\",\n        \"Viradouro\",\n        \"Vista Alegre do Alto\",\n        \"Vitria Brasil\",\n        \"Votorantim\",\n        \"Votuporanga\",\n        \"Vrzea Paulista\",\n        \"Zacarias\",\n        \"guas da Prata\",\n        \"guas de Lindia\",\n        \"guas de Santa Brbara\",\n        \"guas de So Pedro\",\n        \"leo\",\n        \"lvares Florence\",\n        \"lvares Machado\",\n        \"lvaro de Carvalho\"\n    ]\n}"
+				},
+				{
+					"name": "Lista Cidade por UF inválido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/cities-by-state/SD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"cities-by-state",
+								"SD"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:51:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-01-13T00:51:38.871+0000\",\n    \"status\": 500,\n    \"error\": \"Internal Server Error\",\n    \"message\": \"O parâmetro uf está inválido.\",\n    \"path\": \"/city/cities-by-state/SD\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Total de Registros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0146324-747d-448e-839c-b95a0015e672",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/total",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"total"
+					]
+				},
+				"description": "Requisição responsável por retornar a quantidade de registros da base de dados."
+			},
+			"response": [
+				{
+					"name": "Total de Registros",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/total",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"total"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:56:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        5566\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Deleta por IBGE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb7f686e-ff37-4a95-af4d-b90a79353bbc",
+						"exec": [
+							"pm.test(\"Sucesso ao deletar uma cidade\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/1100015",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"1100015"
+					]
+				},
+				"description": "Requisição responsável por realizar a remoção de uma cidade a partir do código IBGE."
+			},
+			"response": [
+				{
+					"name": "Deleta Cidade por IBGE válido",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/1100015",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"1100015"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:56:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        {\n            \"ibgeId\": 1100015,\n            \"uf\": \"RO\",\n            \"name\": \"Alta Floresta D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.9998238963,\n            \"lat\": -11.9355403048,\n            \"noAccents\": \"Alta Floresta D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        }\n    ],\n    \"message\": \"Cidade removida com sucesso.\"\n}"
+				},
+				{
+					"name": "Deleta cidade por Código de IBGE inválido",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/110034343",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"110034343"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:03:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"timestamp\": \"2020-01-13T00:03:58.799+0000\",\n    \"status\": 500,\n    \"error\": \"Internal Server Error\",\n    \"message\": \"Cidade não licalizada na base de dados.\",\n    \"path\": \"/city/110034343\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Quantidade por Coluna",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb066a0e-6f41-4326-8ddb-9d364455e2d7",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/quantity-column/ibgeId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"quantity-column",
+						"ibgeId"
+					]
+				},
+				"description": "Requisição responsável por realizar contagem da quantidade de registros por uma coluna."
+			},
+			"response": [
+				{
+					"name": "Contagem de registros por coluna",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/quantity-column/ibgeId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"quantity-column",
+								"ibgeId"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:58:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        {\n            \"ibgeId\": 5565\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Insere ou Atualiza Cidade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2feef58-caab-4ada-a5b9-cd78f8b28356",
+						"exec": [
+							"pm.test(\"Sucesso ao inserir ou atualizar uma cidade\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ibgeId\": 9999999,\r\n    \"uf\": \"RO\",\r\n    \"name\": \"Cidade de teste\",\r\n    \"capital\": null,\r\n    \"lon\": -61.9998238963,\r\n    \"lat\": -11.9355403048,\r\n    \"noAccents\": \"Cidade de teste\",\r\n    \"alternativeNames\": null,\r\n    \"microregion\": \"Cacoal\",\r\n    \"mesoregio\": \"Leste Rondoniense\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/city",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city"
+					]
+				},
+				"description": "Requisição responsável por inserir ou atualizar uma cidade da base de dados."
+			},
+			"response": [
+				{
+					"name": "Insere ou Atualiza uma Cidade com dados Válidos",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ibgeId\": 9999999,\r\n    \"uf\": \"RO\",\r\n    \"name\": \"Cidade de teste\",\r\n    \"capital\": null,\r\n    \"lon\": -61.9998238963,\r\n    \"lat\": -11.9355403048,\r\n    \"noAccents\": \"Cidade de teste\",\r\n    \"alternativeNames\": null,\r\n    \"microregion\": \"Cacoal\",\r\n    \"mesoregio\": \"Leste Rondoniense\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/city",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:58:18 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        {\n            \"ibgeId\": 9999999,\n            \"uf\": \"RO\",\n            \"name\": \"Cidade de teste\",\n            \"capital\": null,\n            \"lon\": -61.9998238963,\n            \"lat\": -11.9355403048,\n            \"noAccents\": \"Cidade de teste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        }\n    ],\n    \"message\": \"Cidade cadastrada ou atualizada com sucesso.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Filtro por Coluna",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37caa8f1-0232-4c45-b8c0-ed5c66c15903",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/filter-column?uf=SP&name=Franca&lat=-20.536097",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"filter-column"
+					],
+					"query": [
+						{
+							"key": "uf",
+							"value": "SP"
+						},
+						{
+							"key": "name",
+							"value": "Franca"
+						},
+						{
+							"key": "lat",
+							"value": "-20.536097"
+						}
+					]
+				},
+				"description": "Requisição responsável por realizar uma busca de um registro com base no filtro inserido no endpoint."
+			},
+			"response": [
+				{
+					"name": "Filtro por Coluna executando paginação",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/filter-column?uf=RO&page=1&pagesize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"filter-column"
+							],
+							"query": [
+								{
+									"key": "uf",
+									"value": "RO"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pagesize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:25:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"ibgeId\": 1100114,\n            \"uf\": \"RO\",\n            \"name\": \"Jaru\",\n            \"capital\": null,\n            \"lon\": -62.4762307081,\n            \"lat\": -10.4359487679,\n            \"noAccents\": \"Jaru\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ji-Paran\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100122,\n            \"uf\": \"RO\",\n            \"name\": \"Ji-Paran\",\n            \"capital\": null,\n            \"lon\": -61.9450945827,\n            \"lat\": -10.8820513183,\n            \"noAccents\": \"Ji-Parana\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ji-Paran\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100130,\n            \"uf\": \"RO\",\n            \"name\": \"Machadinho D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.9995925724,\n            \"lat\": -9.42556248,\n            \"noAccents\": \"Machadinho D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ariquemes\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100148,\n            \"uf\": \"RO\",\n            \"name\": \"Nova Brasilndia D'Oeste\",\n            \"capital\": null,\n            \"lon\": -62.308230163,\n            \"lat\": -11.7213254139,\n            \"noAccents\": \"Nova Brasilandia D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Alvorada D'oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100155,\n            \"uf\": \"RO\",\n            \"name\": \"Ouro Preto do Oeste\",\n            \"capital\": null,\n            \"lon\": -62.2610551904,\n            \"lat\": -10.7235739008,\n            \"noAccents\": \"Ouro Preto do Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ji-Paran\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100189,\n            \"uf\": \"RO\",\n            \"name\": \"Pimenta Bueno\",\n            \"capital\": null,\n            \"lon\": -61.1836656736,\n            \"lat\": -11.67753699,\n            \"noAccents\": \"Pimenta Bueno\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Vilhena\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100205,\n            \"uf\": \"RO\",\n            \"name\": \"Porto Velho\",\n            \"capital\": \"true\",\n            \"lon\": -63.8314456544,\n            \"lat\": -8.76889179,\n            \"noAccents\": \"Porto Velho\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Porto Velho\",\n            \"mesoregio\": \"Madeira-Guapor\"\n        },\n        {\n            \"ibgeId\": 1100254,\n            \"uf\": \"RO\",\n            \"name\": \"Presidente Mdici\",\n            \"capital\": null,\n            \"lon\": -61.9094386835,\n            \"lat\": -11.1732050162,\n            \"noAccents\": \"Presidente Medici\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ji-Paran\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100262,\n            \"uf\": \"RO\",\n            \"name\": \"Rio Crespo\",\n            \"capital\": null,\n            \"lon\": -62.900010366,\n            \"lat\": -9.7055367097,\n            \"noAccents\": \"Rio Crespo\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ariquemes\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100288,\n            \"uf\": \"RO\",\n            \"name\": \"Rolim de Moura\",\n            \"capital\": null,\n            \"lon\": -61.7857809352,\n            \"lat\": -11.7222589134,\n            \"noAccents\": \"Rolim de Moura\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"sorted\": true,\n            \"unsorted\": false,\n            \"empty\": false\n        },\n        \"offset\": 10,\n        \"pageNumber\": 1,\n        \"pageSize\": 10,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"totalPages\": 557,\n    \"last\": false,\n    \"totalElements\": 5566,\n    \"number\": 1,\n    \"size\": 10,\n    \"sort\": {\n        \"sorted\": true,\n        \"unsorted\": false,\n        \"empty\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": false,\n    \"empty\": false\n}"
+				},
+				{
+					"name": "Filtro por Coluna sem parâmetros",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/filter-column",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"filter-column"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:21:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"ibgeId\": 1100015,\n            \"uf\": \"RO\",\n            \"name\": \"Alta Floresta D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.9998238963,\n            \"lat\": -11.9355403048,\n            \"noAccents\": \"Alta Floresta D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100023,\n            \"uf\": \"RO\",\n            \"name\": \"Ariquemes\",\n            \"capital\": null,\n            \"lon\": -63.033269278,\n            \"lat\": -9.9084628666,\n            \"noAccents\": \"Ariquemes\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ariquemes\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100031,\n            \"uf\": \"RO\",\n            \"name\": \"Cabixi\",\n            \"capital\": null,\n            \"lon\": -60.5443135812,\n            \"lat\": -13.4997634597,\n            \"noAccents\": \"Cabixi\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100049,\n            \"uf\": \"RO\",\n            \"name\": \"Cacoal\",\n            \"capital\": null,\n            \"lon\": -61.4429442118,\n            \"lat\": -11.4338650287,\n            \"noAccents\": \"Cacoal\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100056,\n            \"uf\": \"RO\",\n            \"name\": \"Cerejeiras\",\n            \"capital\": null,\n            \"lon\": -60.8184261647,\n            \"lat\": -13.195033032,\n            \"noAccents\": \"Cerejeiras\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100064,\n            \"uf\": \"RO\",\n            \"name\": \"Colorado do Oeste\",\n            \"capital\": null,\n            \"lon\": -60.5550674631,\n            \"lat\": -13.1305638415,\n            \"noAccents\": \"Colorado do Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100072,\n            \"uf\": \"RO\",\n            \"name\": \"Corumbiara\",\n            \"capital\": null,\n            \"lon\": -60.9487011707,\n            \"lat\": -12.9975202365,\n            \"noAccents\": \"Corumbiara\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100080,\n            \"uf\": \"RO\",\n            \"name\": \"Costa Marques\",\n            \"capital\": null,\n            \"lon\": -64.2316539391,\n            \"lat\": -12.4360138777,\n            \"noAccents\": \"Costa Marques\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Guajar-Mirim\",\n            \"mesoregio\": \"Madeira-Guapor\"\n        },\n        {\n            \"ibgeId\": 1100098,\n            \"uf\": \"RO\",\n            \"name\": \"Espigo D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.0201731133,\n            \"lat\": -11.5285546333,\n            \"noAccents\": \"Espigao D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100106,\n            \"uf\": \"RO\",\n            \"name\": \"Guajar-Mirim\",\n            \"capital\": null,\n            \"lon\": -65.3239518197,\n            \"lat\": -10.7738837407,\n            \"noAccents\": \"Guajara-Mirim\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Guajar-Mirim\",\n            \"mesoregio\": \"Madeira-Guapor\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"sorted\": true,\n            \"unsorted\": false,\n            \"empty\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"totalPages\": 557,\n    \"last\": false,\n    \"totalElements\": 5566,\n    \"number\": 0,\n    \"size\": 10,\n    \"sort\": {\n        \"sorted\": true,\n        \"unsorted\": false,\n        \"empty\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+				},
+				{
+					"name": "Realizar filtro de registros por coluna",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/filter-column?uf=SP&name=Franca&lat=-20.536097",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"filter-column"
+							],
+							"query": [
+								{
+									"key": "uf",
+									"value": "SP"
+								},
+								{
+									"key": "name",
+									"value": "Franca"
+								},
+								{
+									"key": "lat",
+									"value": "-20.536097"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Jan 2020 23:59:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"ibgeId\": 3516200,\n            \"uf\": \"SP\",\n            \"name\": \"Franca\",\n            \"capital\": null,\n            \"lon\": -47.4023316257,\n            \"lat\": -20.536097,\n            \"noAccents\": \"Franca\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Franca\",\n            \"mesoregio\": \"Ribeiro Preto\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"sorted\": true,\n            \"unsorted\": false,\n            \"empty\": false\n        },\n        \"offset\": 0,\n        \"pageSize\": 10,\n        \"pageNumber\": 0,\n        \"unpaged\": false,\n        \"paged\": true\n    },\n    \"totalPages\": 1,\n    \"totalElements\": 1,\n    \"last\": true,\n    \"size\": 10,\n    \"number\": 0,\n    \"sort\": {\n        \"sorted\": true,\n        \"unsorted\": false,\n        \"empty\": false\n    },\n    \"numberOfElements\": 1,\n    \"first\": true,\n    \"empty\": false\n}"
+				},
+				{
+					"name": "Filtro por Coluna com parâmetro de estado",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/filter-column?uf=SP",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"filter-column"
+							],
+							"query": [
+								{
+									"key": "uf",
+									"value": "SP"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:22:39 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"ibgeId\": 3500105,\n            \"uf\": \"SP\",\n            \"name\": \"Adamantina\",\n            \"capital\": null,\n            \"lon\": -51.0733647496,\n            \"lat\": -21.68831148,\n            \"noAccents\": \"Adamantina\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Adamantina\",\n            \"mesoregio\": \"Presidente Prudente\"\n        },\n        {\n            \"ibgeId\": 3500204,\n            \"uf\": \"SP\",\n            \"name\": \"Adolfo\",\n            \"capital\": null,\n            \"lon\": -49.6497214256,\n            \"lat\": -21.2327297773,\n            \"noAccents\": \"Adolfo\",\n            \"alternativeNames\": null,\n            \"microregion\": \"So Jos do Rio Preto\",\n            \"mesoregio\": \"So Jos do Rio Preto\"\n        },\n        {\n            \"ibgeId\": 3500303,\n            \"uf\": \"SP\",\n            \"name\": \"Agua\",\n            \"capital\": null,\n            \"lon\": -46.9796931093,\n            \"lat\": -22.059684,\n            \"noAccents\": \"Aguai\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Piraununga\",\n            \"mesoregio\": \"Campinas\"\n        },\n        {\n            \"ibgeId\": 3500402,\n            \"uf\": \"SP\",\n            \"name\": \"guas da Prata\",\n            \"capital\": null,\n            \"lon\": -46.7167667096,\n            \"lat\": -21.934829,\n            \"noAccents\": \"Aguas da Prata\",\n            \"alternativeNames\": null,\n            \"microregion\": \"So Joo da Boa Vista\",\n            \"mesoregio\": \"Campinas\"\n        },\n        {\n            \"ibgeId\": 3500501,\n            \"uf\": \"SP\",\n            \"name\": \"guas de Lindia\",\n            \"capital\": null,\n            \"lon\": -46.6317788359,\n            \"lat\": -22.4738220362,\n            \"noAccents\": \"Aguas de Lindoia\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Amparo\",\n            \"mesoregio\": \"Campinas\"\n        },\n        {\n            \"ibgeId\": 3500550,\n            \"uf\": \"SP\",\n            \"name\": \"guas de Santa Brbara\",\n            \"capital\": null,\n            \"lon\": -49.2386077671,\n            \"lat\": -22.8691494094,\n            \"noAccents\": \"Aguas de Santa Barbara\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Avar\",\n            \"mesoregio\": \"Bauru\"\n        },\n        {\n            \"ibgeId\": 3500600,\n            \"uf\": \"SP\",\n            \"name\": \"guas de So Pedro\",\n            \"capital\": null,\n            \"lon\": -47.883974741,\n            \"lat\": -22.5973395539,\n            \"noAccents\": \"Aguas de Sao Pedro\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Piracicaba\",\n            \"mesoregio\": \"Piracicaba\"\n        },\n        {\n            \"ibgeId\": 3500709,\n            \"uf\": \"SP\",\n            \"name\": \"Agudos\",\n            \"capital\": null,\n            \"lon\": -48.9901562879,\n            \"lat\": -22.474037,\n            \"noAccents\": \"Agudos\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Bauru\",\n            \"mesoregio\": \"Bauru\"\n        },\n        {\n            \"ibgeId\": 3500758,\n            \"uf\": \"SP\",\n            \"name\": \"Alambari\",\n            \"capital\": null,\n            \"lon\": -47.8935883872,\n            \"lat\": -23.5538988927,\n            \"noAccents\": \"Alambari\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Itapetininga\",\n            \"mesoregio\": \"Itapetininga\"\n        },\n        {\n            \"ibgeId\": 3500808,\n            \"uf\": \"SP\",\n            \"name\": \"Alfredo Marcondes\",\n            \"capital\": null,\n            \"lon\": -51.4129380665,\n            \"lat\": -21.9527411236,\n            \"noAccents\": \"Alfredo Marcondes\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Presidente Prudente\",\n            \"mesoregio\": \"Presidente Prudente\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"sorted\": true,\n            \"unsorted\": false,\n            \"empty\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"totalPages\": 65,\n    \"last\": false,\n    \"totalElements\": 645,\n    \"number\": 0,\n    \"size\": 10,\n    \"sort\": {\n        \"sorted\": true,\n        \"unsorted\": false,\n        \"empty\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+				},
+				{
+					"name": "Filtro por Coluna com paginação",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/filter-column?uf=RO&page=0&pagesize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"filter-column"
+							],
+							"query": [
+								{
+									"key": "uf",
+									"value": "RO"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "pagesize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:23:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"ibgeId\": 1100015,\n            \"uf\": \"RO\",\n            \"name\": \"Alta Floresta D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.9998238963,\n            \"lat\": -11.9355403048,\n            \"noAccents\": \"Alta Floresta D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100023,\n            \"uf\": \"RO\",\n            \"name\": \"Ariquemes\",\n            \"capital\": null,\n            \"lon\": -63.033269278,\n            \"lat\": -9.9084628666,\n            \"noAccents\": \"Ariquemes\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Ariquemes\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100031,\n            \"uf\": \"RO\",\n            \"name\": \"Cabixi\",\n            \"capital\": null,\n            \"lon\": -60.5443135812,\n            \"lat\": -13.4997634597,\n            \"noAccents\": \"Cabixi\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100049,\n            \"uf\": \"RO\",\n            \"name\": \"Cacoal\",\n            \"capital\": null,\n            \"lon\": -61.4429442118,\n            \"lat\": -11.4338650287,\n            \"noAccents\": \"Cacoal\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100056,\n            \"uf\": \"RO\",\n            \"name\": \"Cerejeiras\",\n            \"capital\": null,\n            \"lon\": -60.8184261647,\n            \"lat\": -13.195033032,\n            \"noAccents\": \"Cerejeiras\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100064,\n            \"uf\": \"RO\",\n            \"name\": \"Colorado do Oeste\",\n            \"capital\": null,\n            \"lon\": -60.5550674631,\n            \"lat\": -13.1305638415,\n            \"noAccents\": \"Colorado do Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100072,\n            \"uf\": \"RO\",\n            \"name\": \"Corumbiara\",\n            \"capital\": null,\n            \"lon\": -60.9487011707,\n            \"lat\": -12.9975202365,\n            \"noAccents\": \"Corumbiara\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Colorado do Oeste\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100080,\n            \"uf\": \"RO\",\n            \"name\": \"Costa Marques\",\n            \"capital\": null,\n            \"lon\": -64.2316539391,\n            \"lat\": -12.4360138777,\n            \"noAccents\": \"Costa Marques\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Guajar-Mirim\",\n            \"mesoregio\": \"Madeira-Guapor\"\n        },\n        {\n            \"ibgeId\": 1100098,\n            \"uf\": \"RO\",\n            \"name\": \"Espigo D'Oeste\",\n            \"capital\": null,\n            \"lon\": -61.0201731133,\n            \"lat\": -11.5285546333,\n            \"noAccents\": \"Espigao D'Oeste\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Cacoal\",\n            \"mesoregio\": \"Leste Rondoniense\"\n        },\n        {\n            \"ibgeId\": 1100106,\n            \"uf\": \"RO\",\n            \"name\": \"Guajar-Mirim\",\n            \"capital\": null,\n            \"lon\": -65.3239518197,\n            \"lat\": -10.7738837407,\n            \"noAccents\": \"Guajara-Mirim\",\n            \"alternativeNames\": null,\n            \"microregion\": \"Guajar-Mirim\",\n            \"mesoregio\": \"Madeira-Guapor\"\n        }\n    ],\n    \"pageable\": {\n        \"sort\": {\n            \"sorted\": true,\n            \"unsorted\": false,\n            \"empty\": false\n        },\n        \"offset\": 0,\n        \"pageNumber\": 0,\n        \"pageSize\": 10,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"totalPages\": 557,\n    \"last\": false,\n    \"totalElements\": 5566,\n    \"number\": 0,\n    \"size\": 10,\n    \"sort\": {\n        \"sorted\": true,\n        \"unsorted\": false,\n        \"empty\": false\n    },\n    \"numberOfElements\": 10,\n    \"first\": true,\n    \"empty\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "Distancia entre cidades",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d0d6ebd-a5a7-4aa2-834f-673967dcbc5d",
+						"exec": [
+							"pm.test(\"Sucesso ao realizar a requisição\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/city/distance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"city",
+						"distance"
+					]
+				},
+				"description": "Requisição responsável por identificar as duas cidades mais distantes uma da outra a partir de longitude e latitude retornando em KM."
+			},
+			"response": [
+				{
+					"name": "Distancia entre cidades",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/city/distance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"city",
+								"distance"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 13 Jan 2020 00:01:21 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"OK\",\n    \"type\": \"application/json\",\n    \"records\": 1,\n    \"data\": [\n        {\n            \"city1\": {\n                \"ibgeId\": 1200336,\n                \"uf\": \"AC\",\n                \"name\": \"Mncio Lima\",\n                \"capital\": null,\n                \"lon\": -72.9165010261,\n                \"lat\": -7.5932225939,\n                \"noAccents\": \"Mancio Lima\",\n                \"alternativeNames\": null,\n                \"microregion\": \"Cruzeiro do Sul\",\n                \"mesoregio\": \"Vale do Juru\"\n            },\n            \"city2\": {\n                \"ibgeId\": 2605459,\n                \"uf\": \"PE\",\n                \"name\": \"Fernando de Noronha\",\n                \"capital\": null,\n                \"lon\": -32.4351863281,\n                \"lat\": -3.8520214008,\n                \"noAccents\": \"Fernando de Noronha\",\n                \"alternativeNames\": null,\n                \"microregion\": \"Fernando de Noronha\",\n                \"mesoregio\": \"Metropolitana de Recife\"\n            },\n            \"distance\": 4496.151136560018\n        }\n    ]\n}"
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}
