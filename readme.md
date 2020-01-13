@@ -1,20 +1,24 @@
 # API XPTO
 
-Acesse a [documentaÁ„o](https://shorturl.at/kxWZ2)
+Acesse a [documenta√ß√£o](https://web.postman.co/collections/715148-c353fd36-e925-4cd1-be5c-4d675072de9b?version=latest&workspace=e27e219d-abce-4db3-8359-575d3c74f15c)
 ___
-Esta È uma API de teste que tem por objetivo fornecer informaÁıes sobre as cidades brasileireis utilizando do padr„o Rest.
-Na pasta **teste_postman** h· um arquivo .Json que dentem dos teste de execuÁ„o da aplicaÁ„o.
-Para poder realizar as **Requests** È necess·rio fazer uma autenticaÁ„o no formato **Basic Auth**.
-Por tanto utilize as informaÁıes abaixo:
+Esta √© uma API de teste que tem por objetivo fornecer informa√ß√µes sobre as cidades brasileireis utilizando do padr√£o Rest.
+As tecnologias utilizadas foram o [Spring Boot](https://spring.io/) a ide (STS)[https://spring.io/tools] e o banco de dados **H2**.
+Na pasta **teste_postman** h√° um arquivo .Json que dent√©m de um relat√≥rio de testes da execu√ß√£o da aplica√ß√£o.
+Para poder realizar as **Requests** √© necess√°rio fazer uma autentica√ß√£o no formato **Basic Auth**.
+E para acessar o banco de dados utilize a url **http://localhost:8080/h2-console**.
+Assim que acessado ser√° aberto um modal solicitando um usu√°rio e senha.
+O usu√°rio solicitado no modal mencionado e para executar os requests s√£o os contidos na tabela abaixo:
 
 Campos   | Valores
 --------| ------
-Usu·rio | admin
+Usu√°rio | admin
 Senha | admin
 
-**Obs.:** Para facilitar o seu trabalho utilize o [Postman](https://www.getpostman.com/). Nele h· uma aba denominada de **Authorization**. E assim que acessa-la, no campo **type** opite por **Basic Auth**, preencha os dados de login na lateral direira e por fim pressione o bot„o **Preview Request**. Assim que feito tal procedimento a API estara autenticada.
+**Obs.:** Para facilitar o seu trabalho utilize o [Postman](https://www.getpostman.com/). Nele h√° uma aba denominada de **Authorization**. E assim que acessa-la, no campo **type** opite por **Basic Auth**, preencha os dados de login na lateral direita e por fim pressione o bot√£o **Preview Request**. Assim que feito tal procedimento a API estara autenticada.
+Quanto ao banco de dados **H2**, assim que inserido o usu√°rio **admin** e autenticado basta clicar sobre **Connect**, dessa forma voc√™ poder√° acessar o banco.
 ___
-## MÈtodos
+## M√©todos
 ##### POST | http://localhost:8080/city/upload 
 -- Realizar upload de arquivo .csv para alimentar a base de dados.
 
@@ -28,7 +32,7 @@ ___
 -- Buscar os estados com a contagem de cidades.
 
 ##### GET | http://localhost:8080/city/{ibge}
--- Buscar cidade por cÛgido IBGE.
+-- Buscar cidade por c√≥gido IBGE.
 
 ##### GET | http://localhost:8080/city/cities-by-state/{uf}
 -- Buscar lista de cidades por UF.
@@ -37,7 +41,7 @@ ___
 -- Buscar o total de registros da dabase de dados.
 
 ##### DELETE | http://localhost:8080/city/{ibge}
--- Deleta uma cidade por cÛgido IBGE.
+-- Deleta uma cidade por c√≥gido IBGE.
 
 ##### POST | http://localhost:8080/city
 -- Insere ou atualiza uma cidade.
@@ -49,4 +53,4 @@ ___
 -- Buscar objetos a partir de coluna (filtro).
 
 ##### GET | http://localhost:8080/city/distance
--- Buscar a maior dist‚ncia entre as cidades em Km.
+-- Buscar a maior dist√¢ncia entre as cidades em Km.
