@@ -5,7 +5,7 @@ Acesse a [documentação](https://web.postman.co/collections/715148-c353fd36-e92
 Os desafios de **SQL** e **PLSQL** estão dentro do arquivo .zip com o nome **desafios_plsql**.
 ___
 Esta é uma API de teste que tem por objetivo fornecer informações sobre as cidades brasileireis utilizando do padrão Rest.
-As tecnologias utilizadas foram o [Spring Boot](https://spring.io/) a ide (STS)[https://spring.io/tools] e o banco de dados **H2**.
+As tecnologias utilizadas foram o [Spring Boot](https://spring.io/) a ide [STS](https://spring.io/tools) e o banco de dados **H2**.
 Na pasta **teste_postman** há um arquivo .Json que dentém de um relatório de testes da execução da aplicação.
 Para poder realizar as **Requests** é necessário fazer uma autenticação no formato **Basic Auth**.
 E para acessar o banco de dados utilize a url **http://localhost:8080/h2-console**.
