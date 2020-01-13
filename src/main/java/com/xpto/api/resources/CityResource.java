@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.xpto.api.entities.City;
+import com.xpto.api.exceptions.DefaultException;
 import com.xpto.api.responses.DefaultResponse;
 import com.xpto.api.services.ICityService;
 
@@ -39,21 +40,21 @@ public class CityResource {
 		return new ResponseEntity<>("Foi realizado o upload do arquivo "+file.getOriginalFilename()+" e importado para a base de dados.", HttpStatus.OK);	
 	}
 	
-	//Burcas as cidades capitais na base de dados.
+	//Buscar as cidades capitais na base de dados.
 	@GetMapping(value = "/capitals")
 	public ResponseEntity<DefaultResponse> getCapitals() {
 		DefaultResponse response = cityService.findCapitals();
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Busca os estados com a contagem de cidades.
-		@GetMapping(value = "/max-min-cities-state")
-		public ResponseEntity<DefaultResponse> getMaxMinCidadeByState() {
-			DefaultResponse response = cityService.getMaxMinCidadeByState();
-			return new ResponseEntity<DefaultResponse>(response, response.getStatus());
-		}
+	//Buscar os estados com a maior e menor quantidade de cidades
+	@GetMapping(value = "/max-min-cities-state")
+	public ResponseEntity<DefaultResponse> getMaxMinCidadeByState() {
+		DefaultResponse response = cityService.getMaxMinCidadeByState();
+		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
+	}
 	
-	//Busca os estados com a contagem de cidades.
+	//Buscar os estados com a contagem de cidades.
 	@GetMapping(value = "/quantity-cities-by-state")
 	public ResponseEntity<DefaultResponse> getCountCityByState() {
 		DefaultResponse response = cityService.getCountCityByState();
@@ -69,12 +70,12 @@ public class CityResource {
 	
 	//Buscar lista de cidades por UF.
 	@GetMapping(value = "/cities-by-state/{uf}")
-	public ResponseEntity<DefaultResponse> getCityByState(@PathVariable("uf") String uf) {	
+	public ResponseEntity<DefaultResponse> getCityByState(@PathVariable("uf") String uf) {		
 		DefaultResponse response = cityService.getCityByState(uf);
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Buscar o total de registros da dabase de dados.
+	//Buscar o total de registros da base de dados.
 	@GetMapping(value = "/total")
 	public ResponseEntity<DefaultResponse> getTotal() {		
 		DefaultResponse response = cityService.getTotal();
@@ -102,7 +103,7 @@ public class CityResource {
 		return new ResponseEntity<DefaultResponse>(response, response.getStatus());
 	}
 	
-	//Busca objetos a partir de coluna (filtro)
+	//Buscar objetos a partir de coluna (filtro).
 	@GetMapping(value = "/filter-column")
 	public Page<City> getFilterByColumn(
 			@RequestParam(required = false) Map<String, String> filters,

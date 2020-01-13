@@ -98,7 +98,6 @@ public class CityService implements ICityService {
 					
 					if (columns[4] != null && !columns[4].trim().isEmpty()) {
 						city.setLon(Double.parseDouble(columns[4].trim()));
-						//throw new CitiesExceptions("Lon value "+Double.parseDouble(columns[4].trim()));
 					}
 					
 					if (columns[5] != null && !columns[5].trim().isEmpty()) {
@@ -148,7 +147,7 @@ public class CityService implements ICityService {
 	@Override
 	public DefaultResponse getCountCityByState() {
 		try {
-			List<Object> listObject = Util.castObjectList(cityRepository.getCountCityByState(), Object.class);
+			List<Object> listObject = cityRepository.getCountCityByState();
 			HttpStatus status = HttpStatus.OK;
 			if (listObject.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
@@ -180,7 +179,7 @@ public class CityService implements ICityService {
 	public DefaultResponse getCityByIbge(Long ibge) {
 		try {
 			if (ibge == null) {
-				throw new DefaultException("O parâmentro ibge esta inválido.", HttpStatus.BAD_REQUEST);
+				throw new DefaultException("O parâmetro uf está inválido.", HttpStatus.BAD_REQUEST);
 			}
 			
 			Optional<City> city = cityRepository.findById(ibge);
@@ -196,20 +195,65 @@ public class CityService implements ICityService {
 		}
 	}
 
+	private boolean checkValidState(String uf) {
+		boolean result = false;
+		
+		if (uf == null || uf.isEmpty() || uf.length() != 2) {
+			result = true;
+		}
+		
+		switch (uf.toUpperCase()) {
+			case "AC":
+			case "AL":
+			case "AP":
+			case "AM":
+			case "BA":
+			case "CE":
+			case "DF":
+			case "ES":
+			case "GO":
+			case "MA":
+			case "MT":
+			case "MS":
+			case "MG":
+			case "PA":
+			case "PB":
+			case "PR":
+			case "PE":
+			case "PI":
+			case "RJ":
+			case "RN":
+			case "RS":
+			case "RO":
+			case "RR":
+			case "SC":
+			case "SP":
+			case "SE":
+			case "TO":
+				result = false;
+			break;
+			default:
+				result = true;
+				break;
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public DefaultResponse getCityByState(String uf) {
 		try {
-			if (uf == null || uf.isEmpty()) {
-				throw new DefaultException("O parâmentro uf esta inválido.", HttpStatus.BAD_REQUEST);
+			if (checkValidState(uf)) {
+				throw new DefaultException("O parâmetro uf está inválido.", HttpStatus.BAD_REQUEST);
 			}
 			
-			List<Object> listObject = Util.castObjectList(cityRepository.getCityByState(uf.toUpperCase()), Object.class);
+			List<Object> list = cityRepository.getCityByState(uf.toUpperCase());
 			
 			HttpStatus status = HttpStatus.OK;
-			if (listObject.isEmpty()) {
+			if (list.isEmpty()) {
 				status = HttpStatus.NO_CONTENT;
 			}
-			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(listObject.size()), listObject);
+			DefaultResponse response = new DefaultResponse(status, "application/json", Long.valueOf(list.size()), list);
 			return response;
 		} catch (Exception e) {
 			throw new DefaultException(e.getMessage(), e, HttpStatus.SERVICE_UNAVAILABLE);
@@ -237,7 +281,7 @@ public class CityService implements ICityService {
 			Optional<City> city = cityRepository.findById(ibge);
 			
 			if (city == null || city.isEmpty()) {
-				throw new DefaultException("Cidade não licalizada na base de dados.", HttpStatus.BAD_REQUEST);
+				throw new DefaultException("Cidade não localizada na base de dados.", HttpStatus.BAD_REQUEST);
 			}
 			
 			List<Object> listObject = Util.castObjectList(Arrays.asList(city), Object.class);
@@ -255,7 +299,11 @@ public class CityService implements ICityService {
 
 	@Override
 	public DefaultResponse insertOrUpdateCity(City city) {
-		try {			
+		try {
+			if (city == null) {
+				throw new DefaultException("Cidade inválida.", HttpStatus.BAD_REQUEST);
+			}
+			
 			cityRepository.save(city);
 			List<Object> listObject = Util.castObjectList(Arrays.asList(city), Object.class);
 			
@@ -272,6 +320,10 @@ public class CityService implements ICityService {
 	@Override
 	public DefaultResponse getQuantityColumn(String column) {
 		try {
+			if (column == null || column.isEmpty()) {
+				throw new DefaultException("O parâmetro coluna está inválido.", HttpStatus.BAD_REQUEST);
+			}
+			
 			Long quantity  = (long) cityRepository.findAll().stream().map(c -> {return checkColumnExist(c, column);}).distinct().collect(Collectors.toList()).size();
 			
 			Map<String, Long> map = new HashMap<String, Long>();

@@ -31,4 +31,5 @@ public interface CityRepository extends JpaRepository<City, Long>  {
 	Long getTotal();
 
 	Page<City> findAll(Specification<City> filterWithOptions, Pageable pageable);
+
 }
