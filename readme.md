@@ -3,6 +3,7 @@
 Acesse a [documentação](https://shorturl.at/kxWZ2)
 ___
 Esta é uma API de teste que tem por objetivo fornecer informações sobre as cidades brasileireis utilizando do padrão Rest.
+Na pasta **teste_postman** há um arquivo .Json que dentem dos teste de execução da aplicação.
 Para poder realizar as **Requests** é necessário fazer uma autenticação no formato **Basic Auth**.
 Por tanto utilize as informações abaixo:
 
