@@ -1,6 +1,7 @@
 # API XPTO
 
-Acesse a [documentação](https://web.postman.co/collections/715148-c353fd36-e925-4cd1-be5c-4d675072de9b?version=latest&workspace=e27e219d-abce-4db3-8359-575d3c74f15c) ..
+Acesse a [documentação](https://web.postman.co/collections/715148-c353fd36-e925-4cd1-be5c-4d675072de9b?version=latest&workspace=e27e219d-abce-4db3-8359-575d3c74f15c)
+
 Os desafios de **SQL** e **PLSQL** estão dentro do arquivo .zip com o nome **desafios_plsql**.
 ___
 Esta é uma API de teste que tem por objetivo fornecer informações sobre as cidades brasileireis utilizando do padrão Rest.
